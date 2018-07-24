@@ -31,16 +31,16 @@ FriendStatsTableViewCell:
 ## Controllers
 
 MVP: 
-LoginViewController
-CreateUsernameViewController
-HomeViewController
-ProfileViewController
-CompletedTasksViewController
-FriendsListViewController
-FindFriendsViewController
+- LoginViewController
+- CreateUsernameViewController
+- HomeViewController
+- ProfileViewController
+- CompletedTasksViewController
+- FriendsListViewController
+- FindFriendsViewController
 
 Additional:
-AchievementsViewController
+- AchievementsViewController
 
 ## Others
 
