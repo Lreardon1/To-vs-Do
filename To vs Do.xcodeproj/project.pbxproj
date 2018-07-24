@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5639739B6F771DE3F53DB904 /* Pods_To_vs_Do.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE299D853DCA5D87A702DADF /* Pods_To_vs_Do.framework */; };
+		BE0A690A21079AC1009E3919 /* CreateUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */; };
 		BEBFC038210647BB00C803D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC037210647BB00C803D6 /* AppDelegate.swift */; };
 		BEBFC03A210647BB00C803D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC039210647BB00C803D6 /* ViewController.swift */; };
 		BEBFC03F210647BD00C803D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC03E210647BD00C803D6 /* Assets.xcassets */; };
@@ -15,9 +16,12 @@
 		BEBFC04C21064EA200C803D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC04B21064EA200C803D6 /* GoogleService-Info.plist */; };
 		BEBFC051210652D700C803D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC050210652D700C803D6 /* Main.storyboard */; };
 		BEBFC0532106535600C803D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC0522106535600C803D6 /* LaunchScreen.storyboard */; };
+		BEBFC055210654B100C803D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC054210654B100C803D6 /* LoginViewController.swift */; };
+		BEBFC0582106A1E800C803D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC0572106A1E800C803D6 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewController.swift; sourceTree = "<group>"; };
 		BEBFC034210647BB00C803D6 /* To vs Do.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To vs Do.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEBFC037210647BB00C803D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEBFC039210647BB00C803D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,6 +31,8 @@
 		BEBFC04B21064EA200C803D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEBFC050210652D700C803D6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BEBFC0522106535600C803D6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BEBFC054210654B100C803D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BEBFC0572106A1E800C803D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E46CBA4B9BEB8A5E9DAD8825 /* Pods-To vs Do.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To vs Do.release.xcconfig"; path = "Pods/Target Support Files/Pods-To vs Do/Pods-To vs Do.release.xcconfig"; sourceTree = "<group>"; };
 		EE299D853DCA5D87A702DADF /* Pods_To_vs_Do.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_To_vs_Do.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3D2F6BAF3B578EAFD34731A /* Pods-To vs Do.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To vs Do.debug.xcconfig"; path = "Pods/Target Support Files/Pods-To vs Do/Pods-To vs Do.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				BEBFC037210647BB00C803D6 /* AppDelegate.swift */,
+				BEBFC0562106A1D900C803D6 /* Models */,
 				BEBFC04E2106503100C803D6 /* Storyboards */,
 				BEBFC04D2106500700C803D6 /* Controllers */,
 				BEBFC03E210647BD00C803D6 /* Assets.xcassets */,
@@ -87,6 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				BEBFC039210647BB00C803D6 /* ViewController.swift */,
+				BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */,
+				BEBFC054210654B100C803D6 /* LoginViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -108,6 +117,14 @@
 				BEBFC043210647BD00C803D6 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BEBFC0562106A1D900C803D6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEBFC0572106A1E800C803D6 /* User.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		DF94E68E1938B1E7580A431C /* Frameworks */ = {
@@ -257,7 +274,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEBFC0582106A1E800C803D6 /* User.swift in Sources */,
+				BEBFC055210654B100C803D6 /* LoginViewController.swift in Sources */,
 				BEBFC03A210647BB00C803D6 /* ViewController.swift in Sources */,
+				BE0A690A21079AC1009E3919 /* CreateUsernameViewController.swift in Sources */,
 				BEBFC038210647BB00C803D6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,7 +411,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.leithreardon.TovsDo.To-vs-Do";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leithreardon.TovsDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -410,7 +430,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.leithreardon.TovsDo.To-vs-Do";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leithreardon.TovsDo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
