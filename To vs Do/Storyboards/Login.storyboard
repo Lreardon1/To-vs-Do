@@ -117,9 +117,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="7c7-Qu-ji9"/>
                                 </constraints>
-                                <state key="normal" title="SUBMIT">
+                                <state key="normal" title="Submit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitButtonTapped:" destination="8Cw-KB-7Wh" eventType="touchUpInside" id="0Kg-xf-ZBb"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wD2-lk-HBm">
                                 <rect key="frame" x="22" y="212" width="331" height="40"/>

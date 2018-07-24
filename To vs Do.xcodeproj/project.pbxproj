@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5639739B6F771DE3F53DB904 /* Pods_To_vs_Do.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE299D853DCA5D87A702DADF /* Pods_To_vs_Do.framework */; };
+		BE02E3BB2107E1C1003A9DF4 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3BA2107E1C1003A9DF4 /* UserService.swift */; };
 		BE0A690A21079AC1009E3919 /* CreateUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */; };
 		BEBFC038210647BB00C803D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC037210647BB00C803D6 /* AppDelegate.swift */; };
 		BEBFC03A210647BB00C803D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC039210647BB00C803D6 /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BE02E3BA2107E1C1003A9DF4 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewController.swift; sourceTree = "<group>"; };
 		BEBFC034210647BB00C803D6 /* To vs Do.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To vs Do.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEBFC037210647BB00C803D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BE02E3B92107E19F003A9DF4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BE02E3BA2107E1C1003A9DF4 /* UserService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		BEBFC02B210647BB00C803D6 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				BEBFC037210647BB00C803D6 /* AppDelegate.swift */,
+				BE02E3B92107E19F003A9DF4 /* Services */,
 				BEBFC0562106A1D900C803D6 /* Models */,
 				BEBFC04E2106503100C803D6 /* Storyboards */,
 				BEBFC04D2106500700C803D6 /* Controllers */,
@@ -276,6 +287,7 @@
 			files = (
 				BEBFC0582106A1E800C803D6 /* User.swift in Sources */,
 				BEBFC055210654B100C803D6 /* LoginViewController.swift in Sources */,
+				BE02E3BB2107E1C1003A9DF4 /* UserService.swift in Sources */,
 				BEBFC03A210647BB00C803D6 /* ViewController.swift in Sources */,
 				BE0A690A21079AC1009E3919 /* CreateUsernameViewController.swift in Sources */,
 				BEBFC038210647BB00C803D6 /* AppDelegate.swift in Sources */,
