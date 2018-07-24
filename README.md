@@ -31,10 +31,8 @@ FriendStatsTableViewCell:
 ## Controllers
 
 MVP: 
-LoginViewController:
-    A simple login view with a login button
-CreateUsernameViewController:
-    A view with a text field and a button to allow users to create a username
+LoginViewController
+CreateUsernameViewController
 HomeViewController
 ProfileViewController
 CompletedTasksViewController
