@@ -74,11 +74,11 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
         return [save, delete]
     }
     
-    @IBAction func logOutButtonTapped(_ sender: UIBarButtonItem) {
-        let initialViewController = UIStoryboard.initialViewController(for: .login)
-        self.view.window?.rootViewController = initialViewController
-        self.view.window?.makeKeyAndVisible()
-    }
+//    @IBAction func logOutButtonTapped(_ sender: UIBarButtonItem) {
+//        let initialViewController = UIStoryboard.initialViewController(for: .login)
+//        self.view.window?.rootViewController = initialViewController
+//        self.view.window?.makeKeyAndVisible()
+//    }
     
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
         

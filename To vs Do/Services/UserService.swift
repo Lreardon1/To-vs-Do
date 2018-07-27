@@ -22,7 +22,7 @@ struct UserService {
         })
     }
     
-    static func create(_ firUser: FIRUser, username: String, userToDoList: [ToDoItem], completion: @escaping (User?) -> Void) {
+    static func create(_ firUser: FIRUser, username: String, completion: @escaping (User?) -> Void) {
         let userUsername = ["username": username]
         
         

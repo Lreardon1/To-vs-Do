@@ -41,7 +41,7 @@ class NewToDoItemViewController: UIViewController {
     
     @IBAction func addItemButtonPressed(_ sender: UIButton) {
         
-        if(toDoTitleTextField.text != nil) {
+        if(toDoTitleTextField.text != "") {
             let newToDo = CoreDataHelper.newToDoItem()
             newToDo.title = toDoTitleTextField.text
             newToDo.dueDate = toDoDatePicker.date

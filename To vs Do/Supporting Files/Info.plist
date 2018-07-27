@@ -8,6 +8,10 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Upload a profile picture</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a picture for your profile</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

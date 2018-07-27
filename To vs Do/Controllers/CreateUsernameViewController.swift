@@ -31,7 +31,7 @@ class CreateUsernameViewController: UIViewController {
             let username = usernameTextField.text,
             !username.isEmpty else { return }
         
-        UserService.create(firUser, username: username, userToDoList: []) { (user) in
+        UserService.create(firUser, username: username) { (user) in
             guard let user = user else {
                 // handle error
                 return
