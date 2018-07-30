@@ -24,6 +24,10 @@
 		BE02E3DC210B8A36003A9DF4 /* TVDPhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3DB210B8A36003A9DF4 /* TVDPhotoHelper.swift */; };
 		BE02E3DE210B9883003A9DF4 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3DD210B9883003A9DF4 /* StorageService.swift */; };
 		BE02E3E0210B9975003A9DF4 /* ProfilePicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3DF210B9975003A9DF4 /* ProfilePicService.swift */; };
+		BE02E3E2210B9DAE003A9DF4 /* ProfilePic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3E1210B9DAE003A9DF4 /* ProfilePic.swift */; };
+		BE02E3E8210BD1B6003A9DF4 /* MyList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE02E3E7210BD1B6003A9DF4 /* MyList.storyboard */; };
+		BE02E3EA210BD1FD003A9DF4 /* CompletedList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE02E3E9210BD1FD003A9DF4 /* CompletedList.storyboard */; };
+		BE02E3EC210BD221003A9DF4 /* MyProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE02E3EB210BD221003A9DF4 /* MyProfile.storyboard */; };
 		BE0A690A21079AC1009E3919 /* CreateUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */; };
 		BEBFC038210647BB00C803D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC037210647BB00C803D6 /* AppDelegate.swift */; };
 		BEBFC03F210647BD00C803D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC03E210647BD00C803D6 /* Assets.xcassets */; };
@@ -52,6 +56,10 @@
 		BE02E3DB210B8A36003A9DF4 /* TVDPhotoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVDPhotoHelper.swift; sourceTree = "<group>"; };
 		BE02E3DD210B9883003A9DF4 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		BE02E3DF210B9975003A9DF4 /* ProfilePicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicService.swift; sourceTree = "<group>"; };
+		BE02E3E1210B9DAE003A9DF4 /* ProfilePic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePic.swift; sourceTree = "<group>"; };
+		BE02E3E7210BD1B6003A9DF4 /* MyList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyList.storyboard; sourceTree = "<group>"; };
+		BE02E3E9210BD1FD003A9DF4 /* CompletedList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CompletedList.storyboard; sourceTree = "<group>"; };
+		BE02E3EB210BD221003A9DF4 /* MyProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
 		BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewController.swift; sourceTree = "<group>"; };
 		BEBFC034210647BB00C803D6 /* To vs Do.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To vs Do.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEBFC037210647BB00C803D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +176,9 @@
 			isa = PBXGroup;
 			children = (
 				BEBFC050210652D700C803D6 /* Main.storyboard */,
+				BE02E3EB210BD221003A9DF4 /* MyProfile.storyboard */,
+				BE02E3E9210BD1FD003A9DF4 /* CompletedList.storyboard */,
+				BE02E3E7210BD1B6003A9DF4 /* MyList.storyboard */,
 				BEBFC0522106535600C803D6 /* LaunchScreen.storyboard */,
 				BEBFC04921064A8400C803D6 /* Login.storyboard */,
 			);
@@ -188,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				BEBFC0572106A1E800C803D6 /* User.swift */,
+				BE02E3E1210B9DAE003A9DF4 /* ProfilePic.swift */,
 				BE02E3CB21093384003A9DF4 /* To_vs_Do.xcdatamodeld */,
 				BE02E3C52108E145003A9DF4 /* ToDoListTableViewCell.swift */,
 				BE02E3D3210A3E02003A9DF4 /* CompletedToDoListTableViewCell.swift */,
@@ -267,6 +279,9 @@
 			files = (
 				BEBFC04A21064A8400C803D6 /* Login.storyboard in Resources */,
 				BEBFC051210652D700C803D6 /* Main.storyboard in Resources */,
+				BE02E3EC210BD221003A9DF4 /* MyProfile.storyboard in Resources */,
+				BE02E3E8210BD1B6003A9DF4 /* MyList.storyboard in Resources */,
+				BE02E3EA210BD1FD003A9DF4 /* CompletedList.storyboard in Resources */,
 				BEBFC04C21064EA200C803D6 /* GoogleService-Info.plist in Resources */,
 				BEBFC0532106535600C803D6 /* LaunchScreen.storyboard in Resources */,
 				BEBFC03F210647BD00C803D6 /* Assets.xcassets in Resources */,
@@ -283,15 +298,23 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-To vs Do/Pods-To vs Do-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityIndicator/AlamofireNetworkActivityIndicator.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireNetworkActivityIndicator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -351,6 +374,7 @@
 				BE02E3DE210B9883003A9DF4 /* StorageService.swift in Sources */,
 				BE02E3BB2107E1C1003A9DF4 /* UserService.swift in Sources */,
 				BE02E3C02107EB65003A9DF4 /* Storyboard+Utility.swift in Sources */,
+				BE02E3E2210B9DAE003A9DF4 /* ProfilePic.swift in Sources */,
 				BE02E3D6210B8553003A9DF4 /* UserProfileViewController.swift in Sources */,
 				BE02E3BD2107EAE8003A9DF4 /* Constants.swift in Sources */,
 				BE02E3CA21091045003A9DF4 /* Date+ConvertToString.swift in Sources */,

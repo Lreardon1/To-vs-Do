@@ -30,5 +30,13 @@ struct StorageService {
             })
         })
     }
+}
+
+extension StorageReference {
     
+    static func newProfilePicReference() -> StorageReference {
+        let uid = User.current.uid
+        
+        return Storage.storage().reference().child("images/profilePic/\(uid)")
+    }
 }

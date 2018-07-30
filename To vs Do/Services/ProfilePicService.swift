@@ -14,14 +14,14 @@ import FirebaseDatabase
 
 struct ProfilePicService {
     static func create(for image: UIImage) {
-        let imageRef = Storage.storage().reference().child("profile_image.jpg")
+        let imageRef = StorageReference.newProfilePicReference()
         StorageService.uploadImage(image, at: imageRef) { (downloadURL) in
             guard let downloadURL = downloadURL else {
                 return
             }
             
             let urlString = downloadURL.absoluteString
-            print("image url: \(urlString)")
+            ProfilePic.create(forURLString: urlString)
         }
     }
 }
