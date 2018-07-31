@@ -43,7 +43,7 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
         let toDoItem = toDoList[indexPath.row]
         cell.toDoItemTitleLabel.text = toDoItem.title
-        cell.toDoItemTimeLabel.text = "Due: " + String((toDoItem.dueDate?.convertToString().prefix(6))!)
+        cell.toDoItemTimeLabel.text = "Due: " + String((toDoItem.dueDate?.convertToString())!)
         return cell
     }
     
@@ -60,18 +60,24 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
             CoreDataHelper.deleteToDoItem(toDoItem: completedToDo)
             self.toDoList = CoreDataHelper.retrieveToDoItem()
             self.toDoTableView.reloadData()
+            StatCalculatorService.calculateStats()
         }
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { (action, indexPath) in
             let toDoDelete = self.toDoList[indexPath.row]
             CoreDataHelper.deleteToDoItem(toDoItem: toDoDelete)
             self.toDoList = CoreDataHelper.retrieveToDoItem()
             self.toDoTableView.reloadData()
+            StatCalculatorService.calculateStats()
         }
         
-        save.backgroundColor = UIColor.green
-        delete.backgroundColor = UIColor.red
+        save.backgroundColor = #colorLiteral(red: 0.3497066498, green: 0.9791168571, blue: 0.3165050149, alpha: 1)
+        delete.backgroundColor = #colorLiteral(red: 0.897116363, green: 0.1273201406, blue: 0, alpha: 1)
         
         return [save, delete]
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
     @IBAction func logOutButtonTapped(_ sender: UIBarButtonItem) {

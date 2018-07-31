@@ -38,7 +38,7 @@ struct UserService {
                 completion(user)
             })
         }
-        
+        StatCalculatorService.calculateStats()
 //        let image = UIImage(named: "ic_account_circle")
 //        ProfilePicService.create(for: image!)
     }

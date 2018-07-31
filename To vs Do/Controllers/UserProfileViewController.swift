@@ -21,6 +21,21 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var editPhotoButton: UIBarButtonItem!
     
     let photoHelper = TVDPhotoHelper()
+    var toDoTodayCount: Int? {
+        didSet {
+            userStatTableView.reloadData()
+        }
+    }
+    var completedTodayCount: Int? {
+        didSet {
+            userStatTableView.reloadData()
+        }
+    }
+    var dailyAverage: Double? {
+        didSet{
+            userStatTableView.reloadData()
+        }
+    }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -28,8 +43,10 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "statTableViewCell", for: indexPath) as! StatTableViewCell
-        
-       return cell
+        friendCountLabel.text = "Avg: \(String(getAverageCount()))"
+        cell.toDoTodayCountLabel.text = "To Do Today: \(String(getToDoTodayCount())) items"
+        cell.completedTodayCountLabel.text = "Completed Today: \(String(getCompletedTodayCount())) items"
+        return cell
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -41,9 +58,11 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         usernameLabel.text = User.current.username
+        friendCountLabel.text = "Avg: \(String(getAverageCount()))"
         photoHelper.completionHandler = { image in
             ProfilePicService.create(for: image)
         }
+        userStatTableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +75,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 self.userProfileImageView.af_setImage(withURL: image!)
             }
         }
+        StatCalculatorService.calculateStats()
+        userStatTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,6 +93,42 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 let image = URL(string: key)
                 self.userProfileImageView.af_setImage(withURL: image!)
             }
+        }
+    }
+    
+    func getToDoTodayCount() -> Int {
+        let ref = Database.database().reference().child("stats").child(User.current.uid).child("toDoToday")
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            self.toDoTodayCount = snapshot.value as? Int
+        }
+        if let count = self.toDoTodayCount {
+            return count
+        } else {
+            return 0
+        }
+    }
+    
+    func getCompletedTodayCount() -> Int {
+        let ref = Database.database().reference().child("stats").child(User.current.uid).child("completedToday")
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            self.completedTodayCount = snapshot.value as? Int
+        }
+        if let count = self.completedTodayCount {
+            return count
+        } else {
+            return 0
+        }
+    }
+    
+    func getAverageCount() -> Double {
+        let ref = Database.database().reference().child("stats").child(User.current.uid).child("dailyAverage")
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            self.dailyAverage = snapshot.value as? Double
+        }
+        if let count = self.dailyAverage {
+            return count
+        } else {
+            return 0
         }
     }
     

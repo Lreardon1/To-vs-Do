@@ -9,5 +9,8 @@
 import UIKit
 
 class StatTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var toDoTodayCountLabel: UILabel!
+    @IBOutlet weak var completedTodayCountLabel: UILabel!
+    
 }

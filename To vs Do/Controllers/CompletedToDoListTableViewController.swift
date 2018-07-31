@@ -25,6 +25,16 @@ class CompletedToDoListTableViewController: UIViewController, UITableViewDelegat
             toDoOne.dateCompleted! < toDoTwo.dateCompleted!
         }
         completedToDoTableView.reloadData()
+        
+        if(completedToDoList.count > 50) {
+            for i in 0...(completedToDoList.count - 50) {
+                let toDoDelete = self.completedToDoList[i]
+                CoreDataHelper.deleteCompletedToDoItem(toDoItem: toDoDelete)
+            }
+            self.completedToDoList = CoreDataHelper.retrieveCompletedToDoItem()
+            self.completedToDoTableView.reloadData()
+            StatCalculatorService.calculateStats()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,10 +55,16 @@ class CompletedToDoListTableViewController: UIViewController, UITableViewDelegat
         
         let toDoItem = completedToDoList[indexPath.row]
         cell.completedToDoTitleLabel.text = toDoItem.title
-        if(toDoItem.dueDate! > toDoItem.dateCompleted! || (toDoItem.dateCompleted?.convertToString().contains(String((toDoItem.dueDate?.convertToString().prefix(6))!)))!) {
-            cell.completedToDoTimeLabel.text = "Completed on: " + String((toDoItem.dateCompleted?.convertToString().prefix(6))!) + ", on time!"
+        let intervalDate = toDoItem.dateCompleted?.timeIntervalSince(toDoItem.dueDate!)
+    
+        if(intervalDate?.isLess(than: -604800))! {
+            cell.completedToDoTimeLabel.text = "Completed on: " + String((toDoItem.dateCompleted?.convertToString())!) + ", way behind"
+        } else if(intervalDate?.isLess(than: -0))! {
+            cell.completedToDoTimeLabel.text = "Completed on: " + String((toDoItem.dateCompleted?.convertToString())!) + ", behind"
+        } else if(intervalDate?.isLess(than: 604800))! {
+            cell.completedToDoTimeLabel.text = "Completed on: " + String((toDoItem.dateCompleted?.convertToString())!) + ", on time!"
         } else {
-            cell.completedToDoTimeLabel.text = "Completed on: " + String((toDoItem.dateCompleted?.convertToString().prefix(6))!) + ", a bit behind"
+            cell.completedToDoTimeLabel.text = "Completed on: " + String((toDoItem.dateCompleted?.convertToString())!) + ", way ahead!"
         }
         
         return cell
@@ -60,8 +76,9 @@ class CompletedToDoListTableViewController: UIViewController, UITableViewDelegat
             CoreDataHelper.deleteCompletedToDoItem(toDoItem: toDoDelete)
             self.completedToDoList = CoreDataHelper.retrieveCompletedToDoItem()
             self.completedToDoTableView.reloadData()
+            StatCalculatorService.calculateStats()
         }
-        delete.backgroundColor = UIColor.red
+        delete.backgroundColor = #colorLiteral(red: 0.8983547688, green: 0.1275572777, blue: 0, alpha: 1)
         
         return [delete]
     }

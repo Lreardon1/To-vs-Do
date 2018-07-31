@@ -17,6 +17,7 @@ class NewToDoItemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        toDoDatePicker.minimumDate = Date()
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,6 +48,7 @@ class NewToDoItemViewController: UIViewController {
             newToDo.dueDate = toDoDatePicker.date
             
             CoreDataHelper.saveNewToDoItem()
+            StatCalculatorService.calculateStats()
         }
     }
 }
