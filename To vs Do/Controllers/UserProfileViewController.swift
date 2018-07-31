@@ -43,7 +43,6 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "statTableViewCell", for: indexPath) as! StatTableViewCell
-        friendCountLabel.text = "Avg: \(String(getAverageCount()))"
         cell.toDoTodayCountLabel.text = "To Do Today: \(String(getToDoTodayCount())) items"
         cell.completedTodayCountLabel.text = "Completed Today: \(String(getCompletedTodayCount())) items"
         return cell
@@ -58,7 +57,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         usernameLabel.text = User.current.username
-        friendCountLabel.text = "Avg: \(String(getAverageCount()))"
+        friendCountLabel.text = "You have 10 friends"
         photoHelper.completionHandler = { image in
             ProfilePicService.create(for: image)
         }

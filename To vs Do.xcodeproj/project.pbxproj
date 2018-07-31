@@ -30,6 +30,9 @@
 		BE02E3EC210BD221003A9DF4 /* MyProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE02E3EB210BD221003A9DF4 /* MyProfile.storyboard */; };
 		BE0A690A21079AC1009E3919 /* CreateUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */; };
 		BE88416B2110CB6D0034807D /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE88416A2110CB6D0034807D /* FriendService.swift */; };
+		BE88416D2110D8340034807D /* FriendsStats.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE88416C2110D8340034807D /* FriendsStats.storyboard */; };
+		BE88416F2110DACF0034807D /* FriendStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE88416E2110DACF0034807D /* FriendStatsViewController.swift */; };
+		BE8841712110DBDA0034807D /* FriendStatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8841702110DBDA0034807D /* FriendStatTableViewCell.swift */; };
 		BE963CD4210F8C470019AAD4 /* StatCalculatorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE963CD3210F8C470019AAD4 /* StatCalculatorService.swift */; };
 		BEBFC038210647BB00C803D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC037210647BB00C803D6 /* AppDelegate.swift */; };
 		BEBFC03F210647BD00C803D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC03E210647BD00C803D6 /* Assets.xcassets */; };
@@ -64,6 +67,9 @@
 		BE02E3EB210BD221003A9DF4 /* MyProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
 		BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewController.swift; sourceTree = "<group>"; };
 		BE88416A2110CB6D0034807D /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
+		BE88416C2110D8340034807D /* FriendsStats.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FriendsStats.storyboard; sourceTree = "<group>"; };
+		BE88416E2110DACF0034807D /* FriendStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendStatsViewController.swift; sourceTree = "<group>"; };
+		BE8841702110DBDA0034807D /* FriendStatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendStatTableViewCell.swift; sourceTree = "<group>"; };
 		BE963CD3210F8C470019AAD4 /* StatCalculatorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCalculatorService.swift; sourceTree = "<group>"; };
 		BEBFC034210647BB00C803D6 /* To vs Do.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "To vs Do.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEBFC037210647BB00C803D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +180,7 @@
 				BE02E3C32108E0EB003A9DF4 /* ToDoListTableViewController.swift */,
 				BE02E3D1210A3AB0003A9DF4 /* CompletedToDoListTableViewController.swift */,
 				BE02E3D5210B8553003A9DF4 /* UserProfileViewController.swift */,
+				BE88416E2110DACF0034807D /* FriendStatsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -182,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				BEBFC050210652D700C803D6 /* Main.storyboard */,
+				BE88416C2110D8340034807D /* FriendsStats.storyboard */,
 				BE02E3EB210BD221003A9DF4 /* MyProfile.storyboard */,
 				BE02E3E9210BD1FD003A9DF4 /* CompletedList.storyboard */,
 				BE02E3E7210BD1B6003A9DF4 /* MyList.storyboard */,
@@ -210,6 +218,7 @@
 				BE02E3C52108E145003A9DF4 /* ToDoListTableViewCell.swift */,
 				BE02E3D3210A3E02003A9DF4 /* CompletedToDoListTableViewCell.swift */,
 				BE02E3D7210B8600003A9DF4 /* StatTableViewCell.swift */,
+				BE8841702110DBDA0034807D /* FriendStatTableViewCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -286,6 +295,7 @@
 				BEBFC04A21064A8400C803D6 /* Login.storyboard in Resources */,
 				BEBFC051210652D700C803D6 /* Main.storyboard in Resources */,
 				BE02E3EC210BD221003A9DF4 /* MyProfile.storyboard in Resources */,
+				BE88416D2110D8340034807D /* FriendsStats.storyboard in Resources */,
 				BE02E3E8210BD1B6003A9DF4 /* MyList.storyboard in Resources */,
 				BE02E3EA210BD1FD003A9DF4 /* CompletedList.storyboard in Resources */,
 				BEBFC04C21064EA200C803D6 /* GoogleService-Info.plist in Resources */,
@@ -372,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE88416F2110DACF0034807D /* FriendStatsViewController.swift in Sources */,
 				BEBFC0582106A1E800C803D6 /* User.swift in Sources */,
 				BE02E3D8210B8600003A9DF4 /* StatTableViewCell.swift in Sources */,
 				BE02E3D4210A3E02003A9DF4 /* CompletedToDoListTableViewCell.swift in Sources */,
@@ -382,6 +393,7 @@
 				BE88416B2110CB6D0034807D /* FriendService.swift in Sources */,
 				BE02E3C02107EB65003A9DF4 /* Storyboard+Utility.swift in Sources */,
 				BE02E3E2210B9DAE003A9DF4 /* ProfilePic.swift in Sources */,
+				BE8841712110DBDA0034807D /* FriendStatTableViewCell.swift in Sources */,
 				BE02E3D6210B8553003A9DF4 /* UserProfileViewController.swift in Sources */,
 				BE02E3BD2107EAE8003A9DF4 /* Constants.swift in Sources */,
 				BE02E3CA21091045003A9DF4 /* Date+ConvertToString.swift in Sources */,
