@@ -23,11 +23,10 @@ struct UserService {
     }
     
     static func create(_ firUser: FIRUser, username: String, completion: @escaping (User?) -> Void) {
-        let userUsername = ["username": username]
-        
-        
+        let userData = ["username": username,
+                        "image_url": "https://firebasestorage.googleapis.com/v0/b/to-vs-do.appspot.com/o/DefaultUserPic%20(1).jpg?alt=media&token=63da55d4-aa76-4134-82b5-e99e6855a334"]
         let ref = Database.database().reference().child("users").child(firUser.uid)
-        ref.setValue(userUsername) { (error, ref) in
+        ref.updateChildValues(userData) { (error, ref) in
             if let error = error {
                 assertionFailure(error.localizedDescription)
                 return completion(nil)
@@ -38,8 +37,222 @@ struct UserService {
                 completion(user)
             })
         }
-        StatCalculatorService.calculateStats()
-//        let image = UIImage(named: "ic_account_circle")
-//        ProfilePicService.create(for: image!)
+    }
+    
+    static func usersExcludingCurrentUser(completion: @escaping([User]) -> Void) {
+        let currentUser = User.current
+        let ref = Database.database().reference().child("users")
+        let requestRef = Database.database().reference().child("friends").child(currentUser.uid)
+        
+        var requestedUsers = [String]()
+        
+        requestRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : String]
+                else {return completion([])}
+            for item in snapshot {
+                requestedUsers.append(item.value)
+            }
+        }
+
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
+                else { return completion([]) }
+
+            let users = snapshot.compactMap(User.init).filter { $0.uid != currentUser.uid }
+
+            var finalUsers = [User]()
+            for user in users {
+                if(!requestedUsers.contains(user.uid)) {
+                    finalUsers.append(user)
+                }
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            finalUsers.forEach { (user) in
+                dispatchGroup.enter()
+
+                FriendsService.isUserFriendsWith(user) { (isFriend) in
+                    user.isFriend = isFriend
+                    dispatchGroup.leave()
+                }
+            }
+
+            dispatchGroup.notify(queue: .main, execute: {
+                completion(finalUsers)
+            })
+        })
+    }
+    
+    static func requestedFriends(completion: @escaping([User]) -> Void) {
+        let currentUser = User.current
+        let ref = Database.database().reference().child("users")
+        let requestRef = Database.database().reference().child("requests").child(currentUser.uid)
+        
+        var requestedUsers = [String]()
+        
+        requestRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : String]
+                else {return completion([])}
+            for item in snapshot {
+                requestedUsers.append(item.value)
+            }
+        }
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
+                else { return completion([]) }
+            
+            let users = snapshot.compactMap(User.init).filter { $0.uid != currentUser.uid }
+            
+            var finalUsers = [User]()
+            for user in requestedUsers {
+                for allUsers in users {
+                    if(user == allUsers.uid) {
+                        finalUsers.append(allUsers)
+                    }
+                }
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            finalUsers.forEach { (user) in
+                dispatchGroup.enter()
+                
+                FriendsService.isUserFriendsWith(user) { (isFriend) in
+                    user.isFriend = isFriend
+                    dispatchGroup.leave()
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main, execute: {
+                completion(finalUsers)
+            })
+        })
+    }
+    
+    static func friendsList(completion: @escaping([User]) -> Void) {
+        let currentUser = User.current
+        let ref = Database.database().reference().child("users")
+        let requestRef = Database.database().reference().child("friends").child(currentUser.uid)
+        
+        var requestedUsers = [String]()
+        
+        requestRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : String]
+                else {return completion([])}
+            for item in snapshot {
+                requestedUsers.append(item.value)
+            }
+        }
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
+                else { return completion([]) }
+            
+            let users = snapshot.compactMap(User.init).filter { $0.uid != currentUser.uid }
+            
+            var finalUsers = [User]()
+            for user in requestedUsers {
+                for allUsers in users {
+                    if(user == allUsers.uid) {
+                        finalUsers.append(allUsers)
+                    }
+                }
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            finalUsers.forEach { (user) in
+                dispatchGroup.enter()
+                
+                FriendsService.isUserFriendsWith(user) { (isFriend) in
+                    user.isFriend = isFriend
+                    dispatchGroup.leave()
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main, execute: {
+                completion(finalUsers)
+            })
+        })
+    }
+    
+    static func searchForNewFriend(username: String, completion: @escaping([User]) -> Void) {
+        let currentUser = User.current
+        let ref = Database.database().reference().child("users")
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
+                else { return completion([]) }
+            
+            let users = snapshot.compactMap(User.init).filter { $0.uid != currentUser.uid }
+            
+            var finalUsers = [User]()
+            for user in users {
+                if(user.username == username) {
+                    finalUsers.append(user)
+                }
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            finalUsers.forEach { (user) in
+                dispatchGroup.enter()
+                
+                FriendsService.isUserFriendsWith(user) { (isFriend) in
+                    user.isFriend = isFriend
+                    dispatchGroup.leave()
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main, execute: {
+                completion(finalUsers)
+            })
+        })
+    }
+    
+    static func searchForOldFriend(username: String, completion: @escaping([User]) -> Void) {
+        let currentUser = User.current
+        let ref = Database.database().reference().child("users")
+        let requestRef = Database.database().reference().child("friends").child(currentUser.uid)
+        
+        var requestedUsers = [String]()
+        
+        requestRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : String]
+                else {return completion([])}
+            for item in snapshot {
+                requestedUsers.append(item.value)
+            }
+        }
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
+                else { return completion([]) }
+            
+            let users = snapshot.compactMap(User.init).filter { $0.uid != currentUser.uid }
+            
+            var finalUsers = [User]()
+            for user in requestedUsers {
+                for allUsers in users {
+                    if(user == allUsers.uid) {
+                        if(allUsers.username == username) {
+                            finalUsers.append(allUsers)
+                        }
+                    }
+                }
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            finalUsers.forEach { (user) in
+                dispatchGroup.enter()
+                
+                FriendsService.isUserFriendsWith(user) { (isFriend) in
+                    user.isFriend = isFriend
+                    dispatchGroup.leave()
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main, execute: {
+                completion(finalUsers)
+            })
+        })
     }
 }

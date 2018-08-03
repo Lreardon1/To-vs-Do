@@ -32,8 +32,13 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     var dailyAverage: Double? {
-        didSet{
+        didSet {
             userStatTableView.reloadData()
+        }
+    }
+    var friendCount: Int? {
+        didSet {
+            friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         }
     }
     
@@ -57,7 +62,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         usernameLabel.text = User.current.username
-        friendCountLabel.text = "You have 10 friends"
+        friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         photoHelper.completionHandler = { image in
             ProfilePicService.create(for: image)
         }
@@ -65,8 +70,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let ref = Database.database().reference().child("users").child(User.current.uid).child("profilePic").child("image_url")
-        
+        let ref = Database.database().reference().child("users").child(User.current.uid).child("image_url")
+
         ref.observeSingleEvent(of: .value) { (snapshot) in
             let key = snapshot.value as? String
             if let key = key {
@@ -74,6 +79,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 self.userProfileImageView.af_setImage(withURL: image!)
             }
         }
+        friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         StatCalculatorService.calculateStats()
         userStatTableView.reloadData()
     }
@@ -84,7 +90,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func editPhotoButtonTapped(_ sender: UIBarButtonItem) {
         photoHelper.presentActionSheet(from: self)
-        let ref = Database.database().reference().child("users").child(User.current.uid).child("profilePic").child("image_url")
+        let ref = Database.database().reference().child("users").child(User.current.uid).child("image_url")
         
         ref.observeSingleEvent(of: .value) { (snapshot) in
             let key = snapshot.value as? String
@@ -131,4 +137,17 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    func getFriendCount() -> Int{
+        let ref = Database.database().reference().child("friends").child(User.current.uid)
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : Any]
+                else { return }
+            self.friendCount = snapshot.count
+        }
+        if let count = self.friendCount {
+            return count
+        } else {
+            return 0
+        }
+    }
 }

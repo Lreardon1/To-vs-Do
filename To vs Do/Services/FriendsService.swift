@@ -10,9 +10,9 @@ import Foundation
 import FirebaseDatabase
 
 struct FriendsService {
-    private static func sendFriendRequest(_ user: User, forCurrentUserWithSuccess success: @escaping (Bool) -> Void) {
+    static func sendFriendRequest(_ user: User, forCurrentUserWithSuccess success: @escaping (Bool) -> Void) {
         let currentUID = User.current.uid
-        let requestData = ["requests/\(user.uid)/\(currentUID)" : true]
+        let requestData = ["requests/\(user.uid)/\(currentUID)" : currentUID]
         
         
         let ref = Database.database().reference()
@@ -25,10 +25,36 @@ struct FriendsService {
         }
     }
     
-    private static func acceptFriendRequest(_ user: User, forCurrentUserWithSuccess success: @escaping (Bool) -> Void) {
+    static func acceptFriendRequest(_ user: User, forCurrentUserWithSuccess success: @escaping (Bool) -> Void) {
         let currentUID = User.current.uid
-        let friendData = ["friends/\(user.uid)/\(currentUID)" : true,
-                          "friends/\(currentUID)/\(user.uid)": true ]
+        let friendData = ["friends/\(user.uid)/\(currentUID)" : currentUID,
+                          "friends/\(currentUID)/\(user.uid)": user.uid]
+        
+        let requestData = ["requests/\(currentUID)/\(user.uid)" : NSNull(),
+                           "requests/\(user.uid)/\(currentUID)" : NSNull()]
+        
+        let ref = Database.database().reference()
+        ref.updateChildValues(friendData) { (error, _) in
+            if let error = error {
+                assertionFailure(error.localizedDescription)
+            }
+            
+            success(error == nil)
+        }
+        
+        ref.updateChildValues(requestData) { (error, _) in
+            if let error = error {
+                assertionFailure(error.localizedDescription)
+            }
+            
+            success(error == nil)
+        }
+    }
+    
+    static func declineFriendRequest(_ user: User, forCurrentUserWithSuccess success: @escaping (Bool) -> Void) {
+        let currentUID = User.current.uid
+        let friendData = ["requests/\(currentUID)/\(user.uid)" : NSNull(),
+                          "requests/\(user.uid)/\(currentUID)" : NSNull()]
         
         
         
@@ -57,7 +83,15 @@ struct FriendsService {
         }
     }
     
-    static func setIsFollowing(_ isFriendsWith: Bool, fromCurrentUserTo followee: User, success: @escaping (Bool) -> Void) {
+    static func sendRequest(_ isFriendsWith: Bool, fromCurrentUserTo followee: User, success: @escaping (Bool) -> Void) {
+        if isFriendsWith {
+            sendFriendRequest(followee, forCurrentUserWithSuccess: success)
+        } else {
+            declineFriendRequest(followee, forCurrentUserWithSuccess: success)
+        }
+    }
+    
+    static func setIsFriend(_ isFriendsWith: Bool, fromCurrentUserTo followee: User, success: @escaping (Bool) -> Void) {
         if isFriendsWith {
             acceptFriendRequest(followee, forCurrentUserWithSuccess: success)
         } else {

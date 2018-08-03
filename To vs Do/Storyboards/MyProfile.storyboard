@@ -22,7 +22,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="wVp-jE-y5J">
                                 <rect key="frame" x="22" y="64" width="331" height="120"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_account_circle3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="k4D-VO-d7x">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultUserPic (1)" translatesAutoresizingMaskIntoConstraints="NO" id="k4D-VO-d7x">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="C0H-vU-QQj"/>
@@ -152,7 +152,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_account_circle3x.png" width="180" height="180"/>
+        <image name="DefaultUserPic (1)" width="282" height="279"/>
         <image name="tab_profile_black" width="25" height="25"/>
     </resources>
 </document>
