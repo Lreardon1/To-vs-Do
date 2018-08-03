@@ -99,6 +99,7 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
         cell.friendUsernameLabel.text = friend.username
         cell.friendCompletedLabel.text = "Completed Today: " + String(getCompletedTodayCount(user: friend))
         cell.friendToDoLabel.text = "To Do Today: " + String(getToDoTodayCount(user: friend))
+        cell.friendAverageLabel.text = "Average: " + String(getAverageCount(user: friend))
         return cell
     }
     
@@ -120,6 +121,18 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
             self.completedTodayCount = snapshot.value as? Int
         }
         if let count = self.completedTodayCount {
+            return count
+        } else {
+            return 0
+        }
+    }
+    
+    func getAverageCount(user: User) -> Double {
+        let ref = Database.database().reference().child("stats").child(user.uid).child("dailyAverage")
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            self.dailyAverage = snapshot.value as? Double
+        }
+        if let count = self.dailyAverage {
             return count
         } else {
             return 0

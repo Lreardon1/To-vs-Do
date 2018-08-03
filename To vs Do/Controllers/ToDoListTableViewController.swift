@@ -19,7 +19,6 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var datesArray = [String]()
     var toDoDateDictionary = [String : [ToDo]]()
     
-    @IBOutlet weak var logOutButton: UIBarButtonItem!
     @IBOutlet weak var toDoTableView: UITableView!
     
     
@@ -80,11 +79,6 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
-    @IBAction func logOutButtonTapped(_ sender: UIBarButtonItem) {
-        let initialViewController = UIStoryboard.initialViewController(for: .login)
-        self.view.window?.rootViewController = initialViewController
-        self.view.window?.makeKeyAndVisible()
-    }
     
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
         

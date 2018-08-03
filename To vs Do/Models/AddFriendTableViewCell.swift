@@ -25,5 +25,17 @@ class AddFriendTableViewCell: UITableViewCell {
         delegate?.didTapAddFriendButton(sender, on: self)
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        addFriendButton.layer.borderColor = UIColor.lightGray.cgColor
+        addFriendButton.layer.borderWidth = 1
+        addFriendButton.layer.cornerRadius = 6
+        addFriendButton.clipsToBounds = true
+        
+        addFriendButton.setTitle("Add", for: .normal)
+        addFriendButton.setTitle("Requested", for: .selected)
+    }
+    
     
 }

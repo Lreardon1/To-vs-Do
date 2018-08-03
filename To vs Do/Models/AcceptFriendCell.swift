@@ -29,4 +29,24 @@ class AcceptFriendCell: UITableViewCell {
     @IBAction func declineFriendButtonTapped(_ sender: UIButton) {
         delegate?.didTapDeclineFriendButton(sender, on: self)
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        acceptFriendButton.layer.borderColor = UIColor.lightGray.cgColor
+        acceptFriendButton.layer.borderWidth = 1
+        acceptFriendButton.layer.cornerRadius = 6
+        acceptFriendButton.clipsToBounds = true
+        
+        acceptFriendButton.setTitle("Accept", for: .normal)
+        acceptFriendButton.setTitle("Accepted", for: .selected)
+        
+        decineFriendButton.layer.borderColor = UIColor.lightGray.cgColor
+        decineFriendButton.layer.borderWidth = 1
+        decineFriendButton.layer.cornerRadius = 6
+        decineFriendButton.clipsToBounds = true
+        
+        decineFriendButton.setTitle("Decline", for: .normal)
+        decineFriendButton.setTitle("Declined", for: .selected)
+    }
 }

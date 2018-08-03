@@ -156,17 +156,23 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Me-eg-Ixr">
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9Me-eg-Ixr">
                                                     <rect key="frame" x="122" y="42" width="238" height="36"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w8o-aK-GrE">
-                                                            <rect key="frame" x="0.0" y="0.0" width="119" height="36"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="75.5" height="36"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAG-Wp-KHE">
-                                                            <rect key="frame" x="119" y="0.0" width="119" height="36"/>
+                                                            <rect key="frame" x="80.5" y="0.0" width="76.5" height="36"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryv-s3-hUG">
+                                                            <rect key="frame" x="162" y="0.0" width="76" height="36"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -174,6 +180,7 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="SAG-Wp-KHE" firstAttribute="width" secondItem="w8o-aK-GrE" secondAttribute="width" id="82j-nS-aa0"/>
+                                                        <constraint firstItem="ryv-s3-hUG" firstAttribute="width" secondItem="w8o-aK-GrE" secondAttribute="width" id="Rra-Tm-ZXS"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -191,6 +198,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="friendAverageLabel" destination="ryv-s3-hUG" id="mhB-NN-4v4"/>
                                             <outlet property="friendCompletedLabel" destination="SAG-Wp-KHE" id="2YM-b3-bvL"/>
                                             <outlet property="friendProfileImageView" destination="7OQ-yN-Ex1" id="Eps-i8-vhL"/>
                                             <outlet property="friendToDoLabel" destination="w8o-aK-GrE" id="VvE-dL-Gxl"/>

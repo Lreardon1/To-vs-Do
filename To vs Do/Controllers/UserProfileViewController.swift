@@ -19,6 +19,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var friendCountLabel: UILabel!
     @IBOutlet weak var userStatTableView: UITableView!
     @IBOutlet weak var editPhotoButton: UIBarButtonItem!
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
     
     let photoHelper = TVDPhotoHelper()
     var toDoTodayCount: Int? {
@@ -50,6 +51,7 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "statTableViewCell", for: indexPath) as! StatTableViewCell
         cell.toDoTodayCountLabel.text = "To Do Today: \(String(getToDoTodayCount())) items"
         cell.completedTodayCountLabel.text = "Completed Today: \(String(getCompletedTodayCount())) items"
+        cell.dailyAverageLabel.text = "Daily Average: \(String(getAverageCount()))"
         return cell
     }
     
@@ -87,6 +89,12 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
+        let initialViewController = UIStoryboard.initialViewController(for: .login)
+        self.view.window?.rootViewController = initialViewController
+        self.view.window?.makeKeyAndVisible()    }
+    
     
     @IBAction func editPhotoButtonTapped(_ sender: UIBarButtonItem) {
         photoHelper.presentActionSheet(from: self)

@@ -14,5 +14,6 @@ class FriendStatTableViewCell: UITableViewCell {
     @IBOutlet weak var friendUsernameLabel: UILabel!
     @IBOutlet weak var friendToDoLabel: UILabel!
     @IBOutlet weak var friendCompletedLabel: UILabel!    
-
+    @IBOutlet weak var friendAverageLabel: UILabel!
+    
 }

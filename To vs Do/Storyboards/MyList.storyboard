@@ -99,11 +99,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="My To-Do List" id="zzz-qg-tqZ">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="8s0-dd-BVO"/>
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="BSl-Ch-rKu">
-                            <connections>
-                                <action selector="logOutButtonTapped:" destination="9w1-Qh-otl" id="cGz-Ue-puk"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="NbE-D1-k7P">
                             <connections>
                                 <segue destination="ulA-SC-pqN" kind="show" identifier="createNewToDo" id="E7y-kK-SQH"/>
@@ -111,7 +106,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="logOutButton" destination="BSl-Ch-rKu" id="CMG-b3-waM"/>
                         <outlet property="toDoTableView" destination="SjC-Mo-BTQ" id="afg-el-Evx"/>
                     </connections>
                 </viewController>
