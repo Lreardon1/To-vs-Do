@@ -33,10 +33,8 @@ struct StatCalculatorService {
             }
             totalCompleted += 1
         }
-        
-        let timeInterval = Date().timeIntervalSince(findMinDate())
-        let timeIntervalInDays = timeInterval/86400
-        let average = totalCompleted/timeIntervalInDays
+        let timeInterval = Date().days(from: findMinDate()) + 1
+        let average = totalCompleted/Double(timeInterval)
         
         let toDoRef = Database.database().reference().child("stats").child(User.current.uid).child("toDoToday")
         let completedRef = Database.database().reference().child("stats").child(User.current.uid).child("completedToday")
@@ -50,11 +48,20 @@ struct StatCalculatorService {
     
     static func findMinDate() -> Date{
         var minDate = Date()
+        if(CoreDataHelper.retrieveCompletedToDoItem().count == 0) {
+            return Date()
+        }
         for item in CoreDataHelper.retrieveCompletedToDoItem() {
             if(item.dateCompleted! < minDate) {
                 minDate = item.dateCompleted!
             }
         }
         return minDate
+    }
+}
+
+extension Date {
+    func days(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: date, to: self).day ?? 0
     }
 }

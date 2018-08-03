@@ -36,7 +36,7 @@ class ProfilePic {
         let profilePic = ProfilePic(imageURL: urlString)
         let dict = profilePic.dictValue
         
-        let postRef = Database.database().reference().child("users").child(currentUser.uid).child("profilePic")
-        postRef.setValue(dict)
+        let postRef = Database.database().reference().child("users").child(currentUser.uid)
+        postRef.updateChildValues(dict)
     }
 }

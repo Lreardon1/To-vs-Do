@@ -104,7 +104,7 @@
         <scene sceneID="tDu-nT-96N">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jQQ-Ws-98W" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Completed" id="V01-zF-WpV"/>
+                    <tabBarItem key="tabBarItem" title="Completed" image="Check" landscapeImage="Check" largeContentSizeImage="Check" id="V01-zF-WpV"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LbX-1a-gxW">
@@ -121,4 +121,7 @@
             <point key="canvasLocation" x="-394" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Check" width="25" height="25"/>
+    </resources>
 </document>
