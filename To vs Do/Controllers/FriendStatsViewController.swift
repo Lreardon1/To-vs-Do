@@ -15,24 +15,10 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
     @IBOutlet weak var searchFriendsSearchBar: UISearchBar!
     
     var users = [User]()
-    var toDoTodayCount: Int? {
-        didSet {
-            friendStatTableView.reloadData()
-        }
-    }
-    var completedTodayCount: Int? {
-        didSet {
-            friendStatTableView.reloadData()
-        }
-    }
-    var dailyAverage: Double? {
-        didSet{
-            friendStatTableView.reloadData()
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,45 +83,34 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
         let friend  = users[indexPath.row]
         cell.friendProfileImageView.af_setImage(withURL: URL(string: friend.profilePic)!)
         cell.friendUsernameLabel.text = friend.username
-        cell.friendCompletedLabel.text = "Completed Today: " + String(getCompletedTodayCount(user: friend))
-        cell.friendToDoLabel.text = "To Do Today: " + String(getToDoTodayCount(user: friend))
-        cell.friendAverageLabel.text = "Average: " + String(getAverageCount(user: friend))
+        
+        let ref = Database.database().reference().child("stats").child(friend.uid)
+        ref.child("completedToday").observeSingleEvent(of: .value) { (snapshot) in
+            let count = snapshot.value as? Int
+            if let count = count {
+                cell.friendCompletedLabel.text = "Completed Today: " + String(count)
+            } else {
+                cell.friendCompletedLabel.text = "Completed Today: 0"
+            }
+        }
+        
+        ref.child("toDoToday").observeSingleEvent(of: .value) { (snapshot) in
+            let count = snapshot.value as? Int
+            if let count = count {
+                cell.friendToDoLabel.text = "To Do Today: " + String(count)
+            } else {
+                cell.friendToDoLabel.text = "To Do Today: 0"
+            }
+        }
+        
+        ref.child("dailyAverage").observeSingleEvent(of: .value) { (snapshot) in
+            let count = snapshot.value as? Int
+            if let count = count {
+                cell.friendAverageLabel.text = "Average: " + String(count)
+            } else {
+                cell.friendAverageLabel.text = "Average: 0"
+            }
+        }
         return cell
-    }
-    
-    func getToDoTodayCount(user: User) -> Int {
-        let ref = Database.database().reference().child("stats").child(user.uid).child("toDoToday")
-        ref.observeSingleEvent(of: .value) { (snapshot) in
-            self.toDoTodayCount = snapshot.value as? Int
-        }
-        if let count = self.toDoTodayCount {
-            return count
-        } else {
-            return 0
-        }
-    }
-    
-    func getCompletedTodayCount(user: User) -> Int {
-        let ref = Database.database().reference().child("stats").child(user.uid).child("completedToday")
-        ref.observeSingleEvent(of: .value) { (snapshot) in
-            self.completedTodayCount = snapshot.value as? Int
-        }
-        if let count = self.completedTodayCount {
-            return count
-        } else {
-            return 0
-        }
-    }
-    
-    func getAverageCount(user: User) -> Double {
-        let ref = Database.database().reference().child("stats").child(user.uid).child("dailyAverage")
-        ref.observeSingleEvent(of: .value) { (snapshot) in
-            self.dailyAverage = snapshot.value as? Double
-        }
-        if let count = self.dailyAverage {
-            return count
-        } else {
-            return 0
-        }
     }
 }

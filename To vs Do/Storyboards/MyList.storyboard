@@ -20,6 +20,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4aa-gu-UFk">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.23137254901960785" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1058823529" green="0.23137254900000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="9w1-Qh-otl" kind="relationship" relationship="rootViewController" id="LVG-fY-Qxg"/>
@@ -38,21 +43,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SjC-Mo-BTQ">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="466"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="toDoListTableViewCell" id="YqT-19-8BG" customClass="ToDoListTableViewCell" customModule="To_vs_Do" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="toDoListTableViewCell" id="YqT-19-8BG" customClass="ToDoListTableViewCell" customModule="To_vs_Do" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YqT-19-8BG" id="0QC-3t-AY2">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9aG-Oa-FeV">
-                                                    <rect key="frame" x="37" y="11" width="275" height="58"/>
+                                                    <rect key="frame" x="37" y="11" width="249" height="58"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="May-ce-jVd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="275" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="249" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="VeB-1k-SnW"/>
                                                             </constraints>
@@ -61,22 +66,38 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eX-zu-Tcy">
-                                                            <rect key="frame" x="0.0" y="44" width="275" height="14"/>
+                                                            <rect key="frame" x="0.0" y="44" width="249" height="14"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rqb-tZ-8JS">
+                                                    <rect key="frame" x="308" y="25" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="QAh-Qk-6RO"/>
+                                                        <constraint firstAttribute="width" constant="30" id="u8T-fl-WOH"/>
+                                                    </constraints>
+                                                    <state key="normal" image="UnCheck"/>
+                                                    <connections>
+                                                        <action selector="buttonTapped:" destination="xoh-cG-LXd" eventType="touchUpInside" id="SHf-1c-z5L"/>
+                                                        <action selector="checkButtonTapped:" destination="YqT-19-8BG" eventType="touchUpInside" id="bD2-LU-9ih"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="9aG-Oa-FeV" secondAttribute="bottom" id="4o1-eZ-cXL"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="9aG-Oa-FeV" secondAttribute="trailing" constant="22" id="OZi-Hw-A9X"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rqb-tZ-8JS" secondAttribute="trailing" constant="22" id="6vO-S1-s7x"/>
                                                 <constraint firstItem="9aG-Oa-FeV" firstAttribute="leading" secondItem="0QC-3t-AY2" secondAttribute="leadingMargin" constant="22" id="lnd-gR-CWf"/>
+                                                <constraint firstItem="rqb-tZ-8JS" firstAttribute="centerY" secondItem="9aG-Oa-FeV" secondAttribute="centerY" id="lzB-5d-ROs"/>
+                                                <constraint firstItem="rqb-tZ-8JS" firstAttribute="leading" secondItem="9aG-Oa-FeV" secondAttribute="trailing" constant="22" id="rbo-Ku-5Yv"/>
                                                 <constraint firstItem="9aG-Oa-FeV" firstAttribute="top" secondItem="0QC-3t-AY2" secondAttribute="topMargin" id="rh4-8r-mha"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                         <connections>
+                                            <outlet property="checkButton" destination="rqb-tZ-8JS" id="LFQ-ZF-nS0"/>
                                             <outlet property="toDoItemTimeLabel" destination="9eX-zu-Tcy" id="r7S-ms-kbq"/>
                                             <outlet property="toDoItemTitleLabel" destination="May-ce-jVd" id="jpd-Li-LZR"/>
                                         </connections>
@@ -87,13 +108,29 @@
                                     <outlet property="delegate" destination="9w1-Qh-otl" id="oEo-ef-mQs"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w0X-LT-0RL">
+                                <rect key="frame" x="22" y="552" width="331" height="44"/>
+                                <color key="backgroundColor" red="0.10980392156862745" green="0.44705882352941173" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="oER-B9-0Cw"/>
+                                </constraints>
+                                <state key="normal" title="Mark As Complete">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="markAsCompleteButtonTapped:" destination="9w1-Qh-otl" eventType="touchUpInside" id="meU-MG-94g"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="w0X-LT-0RL" firstAttribute="leading" secondItem="2v3-m4-Jk0" secondAttribute="leading" constant="22" id="29Z-Eh-m3d"/>
+                            <constraint firstItem="2v3-m4-Jk0" firstAttribute="trailing" secondItem="w0X-LT-0RL" secondAttribute="trailing" constant="22" id="4oC-2z-hoh"/>
                             <constraint firstItem="SjC-Mo-BTQ" firstAttribute="top" secondItem="2v3-m4-Jk0" secondAttribute="top" id="90t-UV-Hub"/>
+                            <constraint firstItem="w0X-LT-0RL" firstAttribute="top" secondItem="SjC-Mo-BTQ" secondAttribute="bottom" constant="22" id="KjY-L2-WES"/>
+                            <constraint firstItem="2v3-m4-Jk0" firstAttribute="bottom" secondItem="w0X-LT-0RL" secondAttribute="bottom" constant="22" id="T7m-K9-W5p"/>
                             <constraint firstItem="2v3-m4-Jk0" firstAttribute="trailing" secondItem="SjC-Mo-BTQ" secondAttribute="trailing" id="gU5-tt-Rq0"/>
                             <constraint firstItem="SjC-Mo-BTQ" firstAttribute="leading" secondItem="2v3-m4-Jk0" secondAttribute="leading" id="kXg-q8-wDV"/>
-                            <constraint firstItem="2v3-m4-Jk0" firstAttribute="bottom" secondItem="SjC-Mo-BTQ" secondAttribute="bottom" id="tg8-jJ-pB9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2v3-m4-Jk0"/>
                     </view>
@@ -106,12 +143,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="markAsCompleteButton" destination="w0X-LT-0RL" id="hl9-D8-9it"/>
                         <outlet property="toDoTableView" destination="SjC-Mo-BTQ" id="afg-el-Evx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggh-3e-7eI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xoh-cG-LXd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="337" y="-638"/>
+            <point key="canvasLocation" x="336.80000000000001" y="-638.2308845577212"/>
         </scene>
         <!--New To Do Item View Controller-->
         <scene sceneID="0Wk-qm-nGT">
@@ -141,7 +180,7 @@
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yqh-nO-q78">
                                 <rect key="frame" x="22" y="336" width="331" height="44"/>
-                                <color key="backgroundColor" red="0.21960784310000001" green="0.59215686270000001" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.10980392156862745" green="0.44705882352941173" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="6yS-bW-Lca"/>
                                 </constraints>
@@ -182,6 +221,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="UnCheck" width="100" height="100"/>
         <image name="tab_home_black" width="25" height="25"/>
     </resources>
+    <color key="tintColor" red="0.49976572749999998" green="0.89878511210000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -20,10 +20,22 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
     var toDoDateDictionary = [String : [ToDo]]()
     
     @IBOutlet weak var toDoTableView: UITableView!
+    @IBOutlet weak var markAsCompleteButton: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        toDoList = CoreDataHelper.retrieveToDoItem()
+        toDoList.sort { (toDoOne, toDoTwo) -> Bool in
+            toDoOne.dueDate! < toDoTwo.dueDate!
+        }
+        toDoTableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         toDoList = CoreDataHelper.retrieveToDoItem()
         toDoList.sort { (toDoOne, toDoTwo) -> Bool in
@@ -43,24 +55,14 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
         let toDoItem = toDoList[indexPath.row]
         cell.toDoItemTitleLabel.text = toDoItem.title
         cell.toDoItemTimeLabel.text = "Due: " + String((toDoItem.dueDate?.convertToString())!)
+        cell.checkButton.isSelected = false
+        cell.checkButton.setImage(UIImage(named: "UnCheck"), for: UIControlState.normal)
         return cell
     }
     
+    
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let save = UITableViewRowAction(style: .normal, title: "Mark as Complete") { (action, indexPath) in
-            let completedToDo = self.toDoList[indexPath.row]
-            let newCompletedToDo = CoreDataHelper.newCompletedToDoItem()
-            
-            newCompletedToDo.title = completedToDo.title
-            newCompletedToDo.dueDate = completedToDo.dueDate
-            newCompletedToDo.dateCompleted = Date()
-            
-            CoreDataHelper.saveCompletedToDoItem()
-            CoreDataHelper.deleteToDoItem(toDoItem: completedToDo)
-            self.toDoList = CoreDataHelper.retrieveToDoItem()
-            self.toDoTableView.reloadData()
-            StatCalculatorService.calculateStats()
-        }
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { (action, indexPath) in
             let toDoDelete = self.toDoList[indexPath.row]
             CoreDataHelper.deleteToDoItem(toDoItem: toDoDelete)
@@ -69,14 +71,33 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
             StatCalculatorService.calculateStats()
         }
         
-        save.backgroundColor = #colorLiteral(red: 0.3497066498, green: 0.9791168571, blue: 0.3165050149, alpha: 1)
         delete.backgroundColor = #colorLiteral(red: 0.897116363, green: 0.1273201406, blue: 0, alpha: 1)
         
-        return [save, delete]
+        return [delete]
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    @IBAction func markAsCompleteButtonTapped(_ sender: UIButton) {
+        let cells = self.toDoTableView.visibleCells as! Array<ToDoListTableViewCell>
         
+        var count = 0
+        
+        for cell in cells {
+            if (cell.checkButton.isSelected) {
+                let completedToDo = self.toDoList[count]
+                let newCompletedToDo = CoreDataHelper.newCompletedToDoItem()
+                
+                newCompletedToDo.title = completedToDo.title
+                newCompletedToDo.dueDate = completedToDo.dueDate
+                newCompletedToDo.dateCompleted = Date()
+                
+                CoreDataHelper.saveCompletedToDoItem()
+                CoreDataHelper.deleteToDoItem(toDoItem: completedToDo)
+                self.toDoList = CoreDataHelper.retrieveToDoItem()
+                self.toDoTableView.reloadData()
+                StatCalculatorService.calculateStats()
+            }
+            count += 1
+        }
     }
     
     
@@ -84,3 +105,5 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
 }
+
+

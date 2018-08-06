@@ -28,9 +28,6 @@ struct StatCalculatorService {
             if(item.dateCompleted?.convertToString().contains(currentDate.convertToString().prefix(6)))! {
                 completedToday += 1
             }
-            if(item.dueDate?.convertToString().contains(currentDate.convertToString().prefix(6)))! {
-                toDoToday += 1
-            }
             totalCompleted += 1
         }
         let timeInterval = Date().days(from: findMinDate()) + 1

@@ -73,6 +73,7 @@ extension FriendRequestViewController: AcceptFriendCellDelegate {
             followee.isFriend = !followee.isFriend
             self.friendRequestTableView.reloadRows(at: [indexPath], with: .none)
         }
+        self.friendRequestTableView.reloadData()
     }
     
     func didTapDeclineFriendButton(_ declineButton: UIButton, on cell: AcceptFriendCell) {
@@ -91,5 +92,6 @@ extension FriendRequestViewController: AcceptFriendCellDelegate {
             followee.isFriend = !followee.isFriend
             self.friendRequestTableView.reloadRows(at: [indexPath], with: .none)
         }
+        self.friendRequestTableView.reloadData()
     }
 }
