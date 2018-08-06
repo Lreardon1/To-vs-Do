@@ -43,6 +43,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    var rawPic: UIImage?
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
@@ -66,9 +68,22 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         usernameLabel.text = User.current.username
         friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         photoHelper.completionHandler = { image in
-            ProfilePicService.create(for: image)
+            self.rawPic = image
+            self.performSegue(withIdentifier: "showImageCropper", sender: self)
         }
         userStatTableView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else { return }
+        
+        switch identifier {
+        case "showImageCropper":
+            let destination = segue.destination as! CropImageViewController
+            destination.imageToCrop = rawPic
+        default:
+            print("unexpected segue identifier")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,15 +124,6 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func editPhotoButtonTapped(_ sender: UIBarButtonItem) {
         photoHelper.presentActionSheet(from: self)
-        let ref = Database.database().reference().child("users").child(User.current.uid).child("image_url")
-        
-        ref.observeSingleEvent(of: .value) { (snapshot) in
-            let key = snapshot.value as? String
-            if let key = key {
-                let image = URL(string: key)
-                self.userProfileImageView.af_setImage(withURL: image!)
-            }
-        }
     }
     
     func getToDoTodayCount() -> Int {
@@ -169,4 +175,9 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             return 0
         }
     }
+    
+    @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
+        
+    }
+    
 }

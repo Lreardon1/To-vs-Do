@@ -10,6 +10,8 @@ import UIKit
 
 class TVDPhotoHelper: NSObject {
 
+    static var photoType: String?
+    
     var completionHandler: ((UIImage) -> Void)?
     
     func presentActionSheet(from viewController: UIViewController){
@@ -18,6 +20,7 @@ class TVDPhotoHelper: NSObject {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let capturePhotoAction = UIAlertAction(title: "Take Photo", style: .default, handler: { action in
                 self.presentImagePickerController(with: .camera, from: viewController)
+                TVDPhotoHelper.photoType = "camera"
             })
             
             alertController.addAction(capturePhotoAction)
@@ -26,6 +29,7 @@ class TVDPhotoHelper: NSObject {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let uploadAction = UIAlertAction(title: "Upload from Library", style: .default, handler: { action in
                 self.presentImagePickerController(with: .photoLibrary, from: viewController)
+                TVDPhotoHelper.photoType = "library"
             })
             
             alertController.addAction(uploadAction)

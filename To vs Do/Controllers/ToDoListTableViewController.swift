@@ -92,12 +92,13 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
                 
                 CoreDataHelper.saveCompletedToDoItem()
                 CoreDataHelper.deleteToDoItem(toDoItem: completedToDo)
-                self.toDoList = CoreDataHelper.retrieveToDoItem()
-                self.toDoTableView.reloadData()
-                StatCalculatorService.calculateStats()
             }
             count += 1
         }
+        
+        self.toDoList = CoreDataHelper.retrieveToDoItem()
+        self.toDoTableView.reloadData()
+        StatCalculatorService.calculateStats()
     }
     
     

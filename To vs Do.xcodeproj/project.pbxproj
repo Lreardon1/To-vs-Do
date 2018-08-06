@@ -39,11 +39,12 @@
 		BEBFC038210647BB00C803D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC037210647BB00C803D6 /* AppDelegate.swift */; };
 		BEBFC03F210647BD00C803D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC03E210647BD00C803D6 /* Assets.xcassets */; };
 		BEBFC04A21064A8400C803D6 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC04921064A8400C803D6 /* Login.storyboard */; };
-		BEBFC04C21064EA200C803D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC04B21064EA200C803D6 /* GoogleService-Info.plist */; };
 		BEBFC051210652D700C803D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC050210652D700C803D6 /* Main.storyboard */; };
 		BEBFC0532106535600C803D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC0522106535600C803D6 /* LaunchScreen.storyboard */; };
 		BEBFC055210654B100C803D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC054210654B100C803D6 /* LoginViewController.swift */; };
 		BEBFC0582106A1E800C803D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC0572106A1E800C803D6 /* User.swift */; };
+		BEC235412118B3A000AA41B7 /* CropImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC235402118B3A000AA41B7 /* CropImageViewController.swift */; };
+		BEC235452118E82900AA41B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEC235442118E82900AA41B7 /* GoogleService-Info.plist */; };
 		BECA7F1A21136D2A00CC5C6B /* AcceptFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA7F1921136D2A00CC5C6B /* AcceptFriendCell.swift */; };
 		BECA7F1C21136D8300CC5C6B /* FriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA7F1B21136D8300CC5C6B /* FriendRequestViewController.swift */; };
 /* End PBXBuildFile section */
@@ -82,11 +83,12 @@
 		BEBFC03E210647BD00C803D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BEBFC043210647BD00C803D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BEBFC04921064A8400C803D6 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
-		BEBFC04B21064EA200C803D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BEBFC050210652D700C803D6 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		BEBFC0522106535600C803D6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BEBFC054210654B100C803D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BEBFC0572106A1E800C803D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BEC235402118B3A000AA41B7 /* CropImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageViewController.swift; sourceTree = "<group>"; };
+		BEC235442118E82900AA41B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BECA7F1921136D2A00CC5C6B /* AcceptFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptFriendCell.swift; sourceTree = "<group>"; };
 		BECA7F1B21136D8300CC5C6B /* FriendRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewController.swift; sourceTree = "<group>"; };
 		E46CBA4B9BEB8A5E9DAD8825 /* Pods-To vs Do.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-To vs Do.release.xcconfig"; path = "Pods/Target Support Files/Pods-To vs Do/Pods-To vs Do.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				BE02E3C32108E0EB003A9DF4 /* ToDoListTableViewController.swift */,
 				BE02E3D1210A3AB0003A9DF4 /* CompletedToDoListTableViewController.swift */,
 				BE02E3D5210B8553003A9DF4 /* UserProfileViewController.swift */,
+				BEC235402118B3A000AA41B7 /* CropImageViewController.swift */,
 				BE88416E2110DACF0034807D /* FriendStatsViewController.swift */,
 				BEB68F5C2111160E00F5B7DB /* AddFriendViewController.swift */,
 				BECA7F1B21136D8300CC5C6B /* FriendRequestViewController.swift */,
@@ -212,7 +215,7 @@
 		BEBFC04F210651BE00C803D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				BEBFC04B21064EA200C803D6 /* GoogleService-Info.plist */,
+				BEC235442118E82900AA41B7 /* GoogleService-Info.plist */,
 				BE02E3BC2107EAE8003A9DF4 /* Constants.swift */,
 				BEBFC043210647BD00C803D6 /* Info.plist */,
 			);
@@ -305,12 +308,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEBFC04A21064A8400C803D6 /* Login.storyboard in Resources */,
+				BEC235452118E82900AA41B7 /* GoogleService-Info.plist in Resources */,
 				BEBFC051210652D700C803D6 /* Main.storyboard in Resources */,
 				BE02E3EC210BD221003A9DF4 /* MyProfile.storyboard in Resources */,
 				BE88416D2110D8340034807D /* FriendsStats.storyboard in Resources */,
 				BE02E3E8210BD1B6003A9DF4 /* MyList.storyboard in Resources */,
 				BE02E3EA210BD1FD003A9DF4 /* CompletedList.storyboard in Resources */,
-				BEBFC04C21064EA200C803D6 /* GoogleService-Info.plist in Resources */,
 				BEBFC0532106535600C803D6 /* LaunchScreen.storyboard in Resources */,
 				BEBFC03F210647BD00C803D6 /* Assets.xcassets in Resources */,
 			);
@@ -410,6 +413,7 @@
 				BE8841712110DBDA0034807D /* FriendStatTableViewCell.swift in Sources */,
 				BE02E3D6210B8553003A9DF4 /* UserProfileViewController.swift in Sources */,
 				BE02E3BD2107EAE8003A9DF4 /* Constants.swift in Sources */,
+				BEC235412118B3A000AA41B7 /* CropImageViewController.swift in Sources */,
 				BE02E3CA21091045003A9DF4 /* Date+ConvertToString.swift in Sources */,
 				BE02E3D2210A3AB0003A9DF4 /* CompletedToDoListTableViewController.swift in Sources */,
 				BE02E3C42108E0EB003A9DF4 /* ToDoListTableViewController.swift in Sources */,

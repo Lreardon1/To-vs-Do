@@ -120,7 +120,7 @@
             </objects>
             <point key="canvasLocation" x="1405.5999999999999" y="502.39880059970017"/>
         </scene>
-        <!--Your Friends-->
+        <!--Friends-->
         <scene sceneID="SYk-Et-2ox">
             <objects>
                 <viewController id="bM3-pe-Prg" customClass="FriendStatsViewController" customModule="To_vs_Do" customModuleProvider="target" sceneMemberID="viewController">
@@ -232,7 +232,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nZq-gu-qiQ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Your Friends" id="LNl-t4-sqD">
+                    <navigationItem key="navigationItem" title="Friends" id="LNl-t4-sqD">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Fxi-gN-Jqs"/>
                         <barButtonItem key="leftBarButtonItem" title="Requests" id="fTW-Dv-J3p">
                             <connections>
