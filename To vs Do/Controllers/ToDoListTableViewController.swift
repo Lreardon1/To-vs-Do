@@ -67,6 +67,9 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
             let toDoDelete = self.toDoList[indexPath.row]
             CoreDataHelper.deleteToDoItem(toDoItem: toDoDelete)
             self.toDoList = CoreDataHelper.retrieveToDoItem()
+            self.toDoList.sort { (toDoOne, toDoTwo) -> Bool in
+                toDoOne.dueDate! < toDoTwo.dueDate!
+            }
             self.toDoTableView.reloadData()
             StatCalculatorService.calculateStats()
         }
@@ -97,6 +100,9 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
         }
         
         self.toDoList = CoreDataHelper.retrieveToDoItem()
+        toDoList.sort { (toDoOne, toDoTwo) -> Bool in
+            toDoOne.dueDate! < toDoTwo.dueDate!
+        }
         self.toDoTableView.reloadData()
         StatCalculatorService.calculateStats()
     }

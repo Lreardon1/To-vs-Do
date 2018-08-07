@@ -196,32 +196,57 @@ struct UserService {
     }
     
     static func searchForNewFriend(username: String, completion: @escaping([User]) -> Void) {
-        var newUsers = [User]()
+        let currentUser = User.current
+        let ref = Database.database().reference().child("users")
+        let requestRef = Database.database().reference().child("friends").child(currentUser.uid)
+        let blockRef = Database.database().reference().child("blockedUsers").child(currentUser.uid)
         
-        UserService.usersExcludingCurrentUser { (users) in
-            newUsers = users
-        }
+        var requestedUsers = [String]()
+        var blockedUsers = [String]()
         
-        var finalUsers = [User]()
-        for user in newUsers {
-            if(user.username == username) {
-                finalUsers.append(user)
+        requestRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : String]
+                else {return completion([])}
+            for item in snapshot {
+                requestedUsers.append(item.value)
             }
         }
+        
+        blockRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : Any]
+                else {return completion([])}
+            for item in snapshot {
+                blockedUsers.append(item.key)
+            }
+        }
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
+                else { return completion([]) }
             
-        let dispatchGroup = DispatchGroup()
-        finalUsers.forEach { (user) in
-            dispatchGroup.enter()
-                
-            FriendsService.isUserFriendsWith(user) { (isFriend) in
-                user.isFriend = isFriend
-                dispatchGroup.leave()
+            let users = snapshot.compactMap(User.init).filter { $0.uid != currentUser.uid }
+
+            var finalUsers = [User]()
+            for user in users {
+                if(user.username == username && !blockedUsers.contains(user.uid)) {
+                    finalUsers.append(user)
+                }
             }
-        }
+            
+            let dispatchGroup = DispatchGroup()
+            finalUsers.forEach { (user) in
+                dispatchGroup.enter()
+                
+                FriendsService.isUserFriendsWith(user) { (isFriend) in
+                    user.isFriend = isFriend
+                    dispatchGroup.leave()
+                }
+            }
             
             dispatchGroup.notify(queue: .main, execute: {
                 completion(finalUsers)
             })
+        })
     }
     
     static func searchForOldFriend(username: String, completion: @escaping([User]) -> Void) {

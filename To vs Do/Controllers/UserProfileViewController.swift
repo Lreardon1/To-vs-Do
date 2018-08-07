@@ -35,22 +35,22 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
     let photoHelper = TVDPhotoHelper()
     var toDoTodayCount: Int? {
         didSet {
-            toDoTodayLabel.text = "To Do Today: \(String(getToDoTodayCount())) tasks"
+            toDoTodayLabel.text = String(getToDoTodayCount())
         }
     }
     var completedTodayCount: Int? {
         didSet {
-            completedTodayLabel.text = "Completed Today: \(String(getCompletedTodayCount())) tasks"
+            completedTodayLabel.text = String(getCompletedTodayCount())
         }
     }
     var totalToDoCount: Int? {
         didSet{
-            totalToDoLabel.text = "Total To Do: \(String(getTotalToDoCount())) tasks "
+            totalToDoLabel.text = String(getTotalToDoCount())
         }
     }
     var dailyAverage: Double? {
         didSet {
-            dailyAverageLabel.text = "Daily Average: \(String(getAverageCount()))"
+            dailyAverageLabel.text = String(getAverageCount())
         }
     }
     var friendCount: Int? {
@@ -100,10 +100,10 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
         }
         StatCalculatorService.calculateStats()
         friendCountLabel.text = "You have \(String(getFriendCount())) friends"
-        toDoTodayLabel.text = "To Do Today: \(String(getToDoTodayCount())) tasks"
-        completedTodayLabel.text = "Completed Today: \(String(getCompletedTodayCount())) tasks"
-        totalToDoLabel.text = "Total To Do: \(String(getTotalToDoCount())) tasks "
-        dailyAverageLabel.text = "Daily Average: \(String(getAverageCount()))"
+        toDoTodayLabel.text = String(getToDoTodayCount())
+        completedTodayLabel.text = String(getCompletedTodayCount())
+        totalToDoLabel.text = String(getTotalToDoCount())
+        dailyAverageLabel.text = String(getAverageCount())
     }
     
     override func didReceiveMemoryWarning() {
@@ -114,7 +114,6 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
         let alertController = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .alert)
         
         let logoutAction = UIAlertAction(title: "Yes", style: .default, handler: { action in
-            User.setCurrent(User.current, writeToUserDefaults: false)
             let initialViewController = UIStoryboard.initialViewController(for: .login)
             self.view.window?.rootViewController = initialViewController
             self.view.window?.makeKeyAndVisible()
