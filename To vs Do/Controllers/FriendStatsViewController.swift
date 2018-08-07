@@ -78,6 +78,70 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
         return users.count
     }
     
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .normal, title: "Report as Inappropriate") { (action, indexPath) in
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to report this user for inapporpiate content?", preferredStyle: .alert)
+            
+            let reportAction = UIAlertAction(title: "Yes", style: .default, handler: { action in
+                let flaggedUser = self.users[indexPath.row]
+                let flaggedUserRef = Database.database().reference().child("flaggedUsers").child(flaggedUser.uid)
+                let flaggedDict = ["image_url" : flaggedUser.profilePic,
+                                   "username" : flaggedUser.username,
+                                   "reporter_uids/\(User.current.uid)": true] as [String : Any]
+                flaggedUserRef.updateChildValues(flaggedDict)
+                
+                let flagCountRef = flaggedUserRef.child("flag_count")
+                flagCountRef.runTransactionBlock({ (mutableData) -> TransactionResult in
+                    let currentCount = mutableData.value as? Int ?? 0
+                    
+                    mutableData.value = currentCount + 1
+                    
+                    return TransactionResult.success(withValue: mutableData)
+                })
+            })
+            alertController.addAction(reportAction)
+            
+            let declineAction = UIAlertAction(title: "No", style: .default, handler: nil)
+            alertController.addAction(declineAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+        let block = UITableViewRowAction(style: .normal, title: "Block User") { (action, indexPath) in
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to block this user?", preferredStyle: .alert)
+            
+            let blockAction = UIAlertAction(title: "Yes", style: .default, handler: { action in
+                let blockedUser = self.users[indexPath.row]
+                let blockedUserRef = Database.database().reference().child("blockedUsers").child(User.current.uid)
+                let blockedDict = [blockedUser.uid: true]
+                
+                blockedUserRef.updateChildValues(blockedDict)
+                
+                FriendsService.setIsFriend(false, fromCurrentUserTo: self.users[indexPath.row]) { (success) in
+                    guard success else { return }
+                }
+                
+                UserService.friendsList { [unowned self] (users) in
+                    self.users = users
+                    
+                    DispatchQueue.main.async {
+                        self.friendStatTableView.reloadData()
+                    }
+                }
+            })
+            alertController.addAction(blockAction)
+            
+            let declineAction = UIAlertAction(title: "No", style: .default, handler: nil)
+            alertController.addAction(declineAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+        delete.backgroundColor = #colorLiteral(red: 0.897116363, green: 0.1273201406, blue: 0, alpha: 1)
+        block.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        
+        return [delete, block]
+    }
+    
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendStatTableViewCell", for: indexPath) as! FriendStatTableViewCell
         let friend  = users[indexPath.row]
@@ -88,9 +152,9 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
         ref.child("completedToday").observeSingleEvent(of: .value) { (snapshot) in
             let count = snapshot.value as? Int
             if let count = count {
-                cell.friendCompletedLabel.text = "Completed Today: " + String(count)
+                cell.friendCompletedLabel.text = "Completed: " + String(count)
             } else {
-                cell.friendCompletedLabel.text = "Completed Today: 0"
+                cell.friendCompletedLabel.text = "Completed: 0"
             }
         }
         
@@ -100,6 +164,14 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
                 cell.friendToDoLabel.text = "To Do Today: " + String(count)
             } else {
                 cell.friendToDoLabel.text = "To Do Today: 0"
+            }
+        }
+        ref.child("totalToDo").observeSingleEvent(of: .value) { (snapshot) in
+            let count = snapshot.value as? Int
+            if let count = count {
+                cell.friendTotalToDoLabel.text = "Total To Do: " + String(count)
+            } else {
+                cell.friendTotalToDoLabel.text = "Total To Do: 0"
             }
         }
         

@@ -12,29 +12,45 @@ import Alamofire
 import AlamofireImage
 import AlamofireNetworkActivityIndicator
 
-class UserProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserProfileViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var friendCountLabel: UILabel!
-    @IBOutlet weak var userStatTableView: UITableView!
     @IBOutlet weak var editPhotoButton: UIBarButtonItem!
     @IBOutlet weak var logoutButton: UIBarButtonItem!
+    @IBOutlet weak var toDoTodayLabel: UILabel!
+    @IBOutlet weak var completedTodayLabel: UILabel!
+    @IBOutlet weak var totalToDoLabel: UILabel!
+    @IBOutlet weak var dailyAverageLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.delegate = self
+            scrollView.minimumZoomScale = 1.0
+            scrollView.maximumZoomScale = 1.0
+        }
+    }
+    @IBOutlet weak var statView: UIView!
     
     let photoHelper = TVDPhotoHelper()
     var toDoTodayCount: Int? {
         didSet {
-            userStatTableView.reloadData()
+            toDoTodayLabel.text = "To Do Today: \(String(getToDoTodayCount())) tasks"
         }
     }
     var completedTodayCount: Int? {
         didSet {
-            userStatTableView.reloadData()
+            completedTodayLabel.text = "Completed Today: \(String(getCompletedTodayCount())) tasks"
+        }
+    }
+    var totalToDoCount: Int? {
+        didSet{
+            totalToDoLabel.text = "Total To Do: \(String(getTotalToDoCount())) tasks "
         }
     }
     var dailyAverage: Double? {
         didSet {
-            userStatTableView.reloadData()
+            dailyAverageLabel.text = "Daily Average: \(String(getAverageCount()))"
         }
     }
     var friendCount: Int? {
@@ -43,24 +59,23 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
-    var rawPic: UIImage?
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+    var image: UIImage? {
+        didSet {
+            let ref = Database.database().reference().child("users").child(User.current.uid).child("image_url")
+            
+            ref.observeSingleEvent(of: .value) { (snapshot) in
+                let key = snapshot.value as? String
+                if let key = key {
+                    let image = URL(string: key)
+                    self.userProfileImageView.af_setImage(withURL: image!)
+                }
+            }
+        }
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "statTableViewCell", for: indexPath) as! StatTableViewCell
-        cell.toDoTodayCountLabel.text = "To Do Today: \(String(getToDoTodayCount())) items"
-        cell.completedTodayCountLabel.text = "Completed Today: \(String(getCompletedTodayCount())) items"
-        cell.dailyAverageLabel.text = "Daily Average: \(String(getAverageCount()))"
-        return cell
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return statView
     }
-    
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Your Stats"
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,21 +83,8 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
         usernameLabel.text = User.current.username
         friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         photoHelper.completionHandler = { image in
-            self.rawPic = image
-            self.performSegue(withIdentifier: "showImageCropper", sender: self)
-        }
-        userStatTableView.reloadData()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let identifier = segue.identifier else { return }
-        
-        switch identifier {
-        case "showImageCropper":
-            let destination = segue.destination as! CropImageViewController
-            destination.imageToCrop = rawPic
-        default:
-            print("unexpected segue identifier")
+            ProfilePicService.create(for: image)
+            self.image = image
         }
     }
     
@@ -96,9 +98,12 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 self.userProfileImageView.af_setImage(withURL: image!)
             }
         }
-        friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         StatCalculatorService.calculateStats()
-        userStatTableView.reloadData()
+        friendCountLabel.text = "You have \(String(getFriendCount())) friends"
+        toDoTodayLabel.text = "To Do Today: \(String(getToDoTodayCount())) tasks"
+        completedTodayLabel.text = "Completed Today: \(String(getCompletedTodayCount())) tasks"
+        totalToDoLabel.text = "Total To Do: \(String(getTotalToDoCount())) tasks "
+        dailyAverageLabel.text = "Daily Average: \(String(getAverageCount()))"
     }
     
     override func didReceiveMemoryWarning() {
@@ -144,6 +149,18 @@ class UserProfileViewController: UIViewController, UITableViewDelegate, UITableV
             self.completedTodayCount = snapshot.value as? Int
         }
         if let count = self.completedTodayCount {
+            return count
+        } else {
+            return 0
+        }
+    }
+    
+    func getTotalToDoCount() -> Int {
+        let ref = Database.database().reference().child("stats").child(User.current.uid).child("totalToDo")
+        ref.observeSingleEvent(of: .value) { (snapshot) in
+            self.totalToDoCount = snapshot.value as? Int
+        }
+        if let count = self.totalToDoCount {
             return count
         } else {
             return 0

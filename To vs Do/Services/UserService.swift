@@ -43,14 +43,24 @@ struct UserService {
         let currentUser = User.current
         let ref = Database.database().reference().child("users")
         let requestRef = Database.database().reference().child("friends").child(currentUser.uid)
+        let blockRef = Database.database().reference().child("blockedUsers").child(currentUser.uid)
         
         var requestedUsers = [String]()
+        var blockedUsers = [String]()
         
         requestRef.observeSingleEvent(of: .value) { (snapshot) in
             guard let snapshot = snapshot.value as? [String : String]
                 else {return completion([])}
             for item in snapshot {
                 requestedUsers.append(item.value)
+            }
+        }
+        
+        blockRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : Any]
+                else {return completion([])}
+            for item in snapshot {
+                blockedUsers.append(item.key)
             }
         }
 
@@ -62,7 +72,7 @@ struct UserService {
 
             var finalUsers = [User]()
             for user in users {
-                if(!requestedUsers.contains(user.uid)) {
+                if(!requestedUsers.contains(user.uid) && !blockedUsers.contains(user.uid)) {
                     finalUsers.append(user)
                 }
             }
@@ -87,14 +97,24 @@ struct UserService {
         let currentUser = User.current
         let ref = Database.database().reference().child("users")
         let requestRef = Database.database().reference().child("requests").child(currentUser.uid)
+        let blockRef = Database.database().reference().child("blockedUsers").child(currentUser.uid)
         
         var requestedUsers = [String]()
+        var blockedUsers = [String]()
         
         requestRef.observeSingleEvent(of: .value) { (snapshot) in
             guard let snapshot = snapshot.value as? [String : String]
                 else {return completion([])}
             for item in snapshot {
                 requestedUsers.append(item.value)
+            }
+        }
+        
+        blockRef.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snapshot = snapshot.value as? [String : Any]
+                else {return completion([])}
+            for item in snapshot {
+                blockedUsers.append(item.key)
             }
         }
         
@@ -107,7 +127,7 @@ struct UserService {
             var finalUsers = [User]()
             for user in requestedUsers {
                 for allUsers in users {
-                    if(user == allUsers.uid) {
+                    if(user == allUsers.uid && !blockedUsers.contains(user)) {
                         finalUsers.append(allUsers)
                     }
                 }
@@ -176,36 +196,32 @@ struct UserService {
     }
     
     static func searchForNewFriend(username: String, completion: @escaping([User]) -> Void) {
-        let currentUser = User.current
-        let ref = Database.database().reference().child("users")
+        var newUsers = [User]()
         
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
-                else { return completion([]) }
-            
-            let users = snapshot.compactMap(User.init).filter { $0.uid != currentUser.uid }
-            
-            var finalUsers = [User]()
-            for user in users {
-                if(user.username == username) {
-                    finalUsers.append(user)
-                }
+        UserService.usersExcludingCurrentUser { (users) in
+            newUsers = users
+        }
+        
+        var finalUsers = [User]()
+        for user in newUsers {
+            if(user.username == username) {
+                finalUsers.append(user)
             }
+        }
             
-            let dispatchGroup = DispatchGroup()
-            finalUsers.forEach { (user) in
-                dispatchGroup.enter()
+        let dispatchGroup = DispatchGroup()
+        finalUsers.forEach { (user) in
+            dispatchGroup.enter()
                 
-                FriendsService.isUserFriendsWith(user) { (isFriend) in
-                    user.isFriend = isFriend
-                    dispatchGroup.leave()
-                }
+            FriendsService.isUserFriendsWith(user) { (isFriend) in
+                user.isFriend = isFriend
+                dispatchGroup.leave()
             }
+        }
             
             dispatchGroup.notify(queue: .main, execute: {
                 completion(finalUsers)
             })
-        })
     }
     
     static func searchForOldFriend(username: String, completion: @escaping([User]) -> Void) {

@@ -54,10 +54,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9aG-Oa-FeV">
-                                                    <rect key="frame" x="37" y="11" width="249" height="58"/>
+                                                    <rect key="frame" x="22" y="11" width="264" height="58"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="May-ce-jVd">
-                                                            <rect key="frame" x="0.0" y="0.0" width="249" height="44"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="264" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="VeB-1k-SnW"/>
                                                             </constraints>
@@ -66,7 +66,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eX-zu-Tcy">
-                                                            <rect key="frame" x="0.0" y="44" width="249" height="14"/>
+                                                            <rect key="frame" x="0.0" y="44" width="264" height="14"/>
                                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -89,8 +89,8 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="9aG-Oa-FeV" secondAttribute="bottom" id="4o1-eZ-cXL"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="rqb-tZ-8JS" secondAttribute="trailing" constant="22" id="6vO-S1-s7x"/>
-                                                <constraint firstItem="9aG-Oa-FeV" firstAttribute="leading" secondItem="0QC-3t-AY2" secondAttribute="leadingMargin" constant="22" id="lnd-gR-CWf"/>
-                                                <constraint firstItem="rqb-tZ-8JS" firstAttribute="centerY" secondItem="9aG-Oa-FeV" secondAttribute="centerY" id="lzB-5d-ROs"/>
+                                                <constraint firstItem="rqb-tZ-8JS" firstAttribute="centerY" secondItem="0QC-3t-AY2" secondAttribute="centerY" id="LCa-i3-cE9"/>
+                                                <constraint firstItem="9aG-Oa-FeV" firstAttribute="leading" secondItem="0QC-3t-AY2" secondAttribute="leading" constant="22" id="acY-g1-lrL"/>
                                                 <constraint firstItem="rqb-tZ-8JS" firstAttribute="leading" secondItem="9aG-Oa-FeV" secondAttribute="trailing" constant="22" id="rbo-Ku-5Yv"/>
                                                 <constraint firstItem="9aG-Oa-FeV" firstAttribute="top" secondItem="0QC-3t-AY2" secondAttribute="topMargin" id="rh4-8r-mha"/>
                                             </constraints>
@@ -185,7 +185,7 @@
                                     <constraint firstAttribute="height" constant="44" id="6yS-bW-Lca"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Add Item">
+                                <state key="normal" title="Add Task">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 import Alamofire
 import AlamofireImage
 import AlamofireNetworkActivityIndicator
@@ -94,6 +95,40 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
         cell.addFriendUsernameLabel.text = user.username
         cell.addFriendProfileImageView.af_setImage(withURL: URL(string: user.profilePic)!)
         cell.addFriendButton.isSelected = user.isFriend
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .normal, title: "Report as Inappropriate") { (action, indexPath) in
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to report this user for inapporpiate content?", preferredStyle: .alert)
+            
+            let reportAction = UIAlertAction(title: "Yes", style: .default, handler: { action in
+                let flaggedUser = self.users[indexPath.row]
+                let flaggedUserRef = Database.database().reference().child("flaggedUsers").child(flaggedUser.uid)
+                let flaggedDict = ["image_url" : flaggedUser.profilePic,
+                                   "username" : flaggedUser.username,
+                                   "reporter_uids/\(User.current.uid)": true] as [String : Any]
+                flaggedUserRef.updateChildValues(flaggedDict)
+                
+                let flagCountRef = flaggedUserRef.child("flag_count")
+                flagCountRef.runTransactionBlock({ (mutableData) -> TransactionResult in
+                    let currentCount = mutableData.value as? Int ?? 0
+                    
+                    mutableData.value = currentCount + 1
+                    
+                    return TransactionResult.success(withValue: mutableData)
+                })
+            })
+            alertController.addAction(reportAction)
+            
+            let declineAction = UIAlertAction(title: "No", style: .default, handler: nil)
+            alertController.addAction(declineAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+        delete.backgroundColor = #colorLiteral(red: 0.897116363, green: 0.1273201406, blue: 0, alpha: 1)
+        
+        return [delete]
     }
 }
 

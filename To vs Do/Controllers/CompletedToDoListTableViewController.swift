@@ -22,7 +22,7 @@ class CompletedToDoListTableViewController: UIViewController, UITableViewDelegat
         
         completedToDoList = CoreDataHelper.retrieveCompletedToDoItem()
         completedToDoList.sort { (toDoOne, toDoTwo) -> Bool in
-            toDoOne.dateCompleted! < toDoTwo.dateCompleted!
+            toDoOne.dateCompleted! > toDoTwo.dateCompleted!
         }
         
         
@@ -41,7 +41,7 @@ class CompletedToDoListTableViewController: UIViewController, UITableViewDelegat
     override func viewWillAppear(_ animated: Bool) {
         completedToDoList = CoreDataHelper.retrieveCompletedToDoItem()
         completedToDoList.sort { (toDoOne, toDoTwo) -> Bool in
-            toDoOne.dateCompleted! < toDoTwo.dateCompleted!
+            toDoOne.dateCompleted! > toDoTwo.dateCompleted!
         }
         completedToDoTableView.reloadData()
     }

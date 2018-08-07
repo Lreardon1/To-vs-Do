@@ -43,6 +43,7 @@ class TVDPhotoHelper: NSObject {
     
     func presentImagePickerController(with sourceType: UIImagePickerControllerSourceType, from viewController: UIViewController) {
         let imagePickerController = UIImagePickerController()
+        imagePickerController.allowsEditing = true
         imagePickerController.sourceType = sourceType
         imagePickerController.delegate = self
         
@@ -52,7 +53,8 @@ class TVDPhotoHelper: NSObject {
 
 extension TVDPhotoHelper: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        
+        if let selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             completionHandler?(selectedImage)
         }
         

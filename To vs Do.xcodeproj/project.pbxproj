@@ -20,7 +20,6 @@
 		BE02E3D2210A3AB0003A9DF4 /* CompletedToDoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3D1210A3AB0003A9DF4 /* CompletedToDoListTableViewController.swift */; };
 		BE02E3D4210A3E02003A9DF4 /* CompletedToDoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3D3210A3E02003A9DF4 /* CompletedToDoListTableViewCell.swift */; };
 		BE02E3D6210B8553003A9DF4 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3D5210B8553003A9DF4 /* UserProfileViewController.swift */; };
-		BE02E3D8210B8600003A9DF4 /* StatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3D7210B8600003A9DF4 /* StatTableViewCell.swift */; };
 		BE02E3DC210B8A36003A9DF4 /* TVDPhotoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3DB210B8A36003A9DF4 /* TVDPhotoHelper.swift */; };
 		BE02E3DE210B9883003A9DF4 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3DD210B9883003A9DF4 /* StorageService.swift */; };
 		BE02E3E0210B9975003A9DF4 /* ProfilePicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE02E3DF210B9975003A9DF4 /* ProfilePicService.swift */; };
@@ -43,7 +42,6 @@
 		BEBFC0532106535600C803D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEBFC0522106535600C803D6 /* LaunchScreen.storyboard */; };
 		BEBFC055210654B100C803D6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC054210654B100C803D6 /* LoginViewController.swift */; };
 		BEBFC0582106A1E800C803D6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEBFC0572106A1E800C803D6 /* User.swift */; };
-		BEC235412118B3A000AA41B7 /* CropImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC235402118B3A000AA41B7 /* CropImageViewController.swift */; };
 		BEC235452118E82900AA41B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BEC235442118E82900AA41B7 /* GoogleService-Info.plist */; };
 		BECA7F1A21136D2A00CC5C6B /* AcceptFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA7F1921136D2A00CC5C6B /* AcceptFriendCell.swift */; };
 		BECA7F1C21136D8300CC5C6B /* FriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA7F1B21136D8300CC5C6B /* FriendRequestViewController.swift */; };
@@ -62,7 +60,6 @@
 		BE02E3D1210A3AB0003A9DF4 /* CompletedToDoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedToDoListTableViewController.swift; sourceTree = "<group>"; };
 		BE02E3D3210A3E02003A9DF4 /* CompletedToDoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedToDoListTableViewCell.swift; sourceTree = "<group>"; };
 		BE02E3D5210B8553003A9DF4 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
-		BE02E3D7210B8600003A9DF4 /* StatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTableViewCell.swift; sourceTree = "<group>"; };
 		BE02E3DB210B8A36003A9DF4 /* TVDPhotoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVDPhotoHelper.swift; sourceTree = "<group>"; };
 		BE02E3DD210B9883003A9DF4 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		BE02E3DF210B9975003A9DF4 /* ProfilePicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicService.swift; sourceTree = "<group>"; };
@@ -87,7 +84,6 @@
 		BEBFC0522106535600C803D6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BEBFC054210654B100C803D6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BEBFC0572106A1E800C803D6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		BEC235402118B3A000AA41B7 /* CropImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageViewController.swift; sourceTree = "<group>"; };
 		BEC235442118E82900AA41B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BECA7F1921136D2A00CC5C6B /* AcceptFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptFriendCell.swift; sourceTree = "<group>"; };
 		BECA7F1B21136D8300CC5C6B /* FriendRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestViewController.swift; sourceTree = "<group>"; };
@@ -190,7 +186,6 @@
 				BE02E3C32108E0EB003A9DF4 /* ToDoListTableViewController.swift */,
 				BE02E3D1210A3AB0003A9DF4 /* CompletedToDoListTableViewController.swift */,
 				BE02E3D5210B8553003A9DF4 /* UserProfileViewController.swift */,
-				BEC235402118B3A000AA41B7 /* CropImageViewController.swift */,
 				BE88416E2110DACF0034807D /* FriendStatsViewController.swift */,
 				BEB68F5C2111160E00F5B7DB /* AddFriendViewController.swift */,
 				BECA7F1B21136D8300CC5C6B /* FriendRequestViewController.swift */,
@@ -230,7 +225,6 @@
 				BE02E3CB21093384003A9DF4 /* To_vs_Do.xcdatamodeld */,
 				BE02E3C52108E145003A9DF4 /* ToDoListTableViewCell.swift */,
 				BE02E3D3210A3E02003A9DF4 /* CompletedToDoListTableViewCell.swift */,
-				BE02E3D7210B8600003A9DF4 /* StatTableViewCell.swift */,
 				BE8841702110DBDA0034807D /* FriendStatTableViewCell.swift */,
 				BEB68F5A21110E9800F5B7DB /* AddFriendTableViewCell.swift */,
 				BECA7F1921136D2A00CC5C6B /* AcceptFriendCell.swift */,
@@ -399,7 +393,6 @@
 			files = (
 				BE88416F2110DACF0034807D /* FriendStatsViewController.swift in Sources */,
 				BEBFC0582106A1E800C803D6 /* User.swift in Sources */,
-				BE02E3D8210B8600003A9DF4 /* StatTableViewCell.swift in Sources */,
 				BE02E3D4210A3E02003A9DF4 /* CompletedToDoListTableViewCell.swift in Sources */,
 				BEBFC055210654B100C803D6 /* LoginViewController.swift in Sources */,
 				BE02E3DC210B8A36003A9DF4 /* TVDPhotoHelper.swift in Sources */,
@@ -413,7 +406,6 @@
 				BE8841712110DBDA0034807D /* FriendStatTableViewCell.swift in Sources */,
 				BE02E3D6210B8553003A9DF4 /* UserProfileViewController.swift in Sources */,
 				BE02E3BD2107EAE8003A9DF4 /* Constants.swift in Sources */,
-				BEC235412118B3A000AA41B7 /* CropImageViewController.swift in Sources */,
 				BE02E3CA21091045003A9DF4 /* Date+ConvertToString.swift in Sources */,
 				BE02E3D2210A3AB0003A9DF4 /* CompletedToDoListTableViewController.swift in Sources */,
 				BE02E3C42108E0EB003A9DF4 /* ToDoListTableViewController.swift in Sources */,
