@@ -15,11 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         configureInitialRootViewController(for: window)
-    
+
         // Override point for customization after application launch.
         return true
     }
@@ -45,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -54,11 +53,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
          */
         let container = NSPersistentContainer(name: "To_vs_Do")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
+
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -72,9 +71,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-    
+
     // MARK: - Core Data Saving support
-    
+
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -94,7 +93,7 @@ extension AppDelegate {
     func configureInitialRootViewController(for window: UIWindow?) {
         let defaults = UserDefaults.standard
         let initialViewController: UIViewController
-        
+
         if let _ = Auth.auth().currentUser,
             let userData = defaults.object(forKey: Constants.UserDefaults.currentUser) as? Data,
             let user = try? JSONDecoder().decode(User.self, from: userData) {
@@ -103,9 +102,8 @@ extension AppDelegate {
         } else {
             initialViewController = UIStoryboard.initialViewController(for: .login)
         }
-        
+
         window?.rootViewController = initialViewController
         window?.makeKeyAndVisible()
     }
 }
-

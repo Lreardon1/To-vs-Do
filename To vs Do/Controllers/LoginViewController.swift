@@ -14,25 +14,24 @@ import FirebaseDatabase
 typealias FIRUser = FirebaseAuth.User
 
 class LoginViewController: UIViewController {
-    
+
     @IBOutlet weak var loginButton: UIButton!
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         guard let authUI = FUIAuth.defaultAuthUI() else { return }
-        
+
         authUI.delegate = self
-        
+
         let authViewController = authUI.authViewController()
         present(authViewController, animated: true)
     }
@@ -44,14 +43,14 @@ extension LoginViewController: FUIAuthDelegate {
             assertionFailure("Error signing in: \(error.localizedDescription)")
             return
         }
-        
+
         guard let user = authDataResult?.user else { return }
-        
+
         UserService.show(forUID: user.uid) { (user) in
             if let user = user {
                 // handle existing user
                 User.setCurrent(user, writeToUserDefaults: true)
-                
+
                 let initialViewController = UIStoryboard.initialViewController(for: .main)
                 self.view.window?.rootViewController = initialViewController
                 self.view.window?.makeKeyAndVisible()

@@ -13,12 +13,12 @@ extension UIStoryboard {
     enum TVDType: String {
         case main
         case login
-        
-        var filename: String{
+
+        var filename: String {
             return rawValue.capitalized
         }
     }
-    
+
     convenience init(type: TVDType, bundle: Bundle? = nil) {
         self.init(name: type.filename, bundle: bundle)
     }

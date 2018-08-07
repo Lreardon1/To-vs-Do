@@ -66,3 +66,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# Mac-specific files
+.DS_Store
+.DS_Store?

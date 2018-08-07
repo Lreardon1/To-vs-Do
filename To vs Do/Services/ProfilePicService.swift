@@ -19,7 +19,7 @@ struct ProfilePicService {
             guard let downloadURL = downloadURL else {
                 return
             }
-            
+
             let urlString = downloadURL.absoluteString
             User.current.profilePic = urlString
             ProfilePic.create(forURLString: urlString)
