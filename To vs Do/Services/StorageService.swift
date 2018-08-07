@@ -14,13 +14,13 @@ struct StorageService {
         guard let imageData = UIImageJPEGRepresentation(image, 0.1) else {
             return completion(nil)
         }
-        
-        reference.putData(imageData, metadata: nil, completion: { (metadata, error) in
+
+        reference.putData(imageData, metadata: nil, completion: { (_, error) in
             if let error = error {
                 assertionFailure(error.localizedDescription)
                 return completion(nil)
             }
-            
+
             reference.downloadURL(completion: { (url, error) in
                 if let error = error {
                     assertionFailure(error.localizedDescription)
@@ -33,10 +33,10 @@ struct StorageService {
 }
 
 extension StorageReference {
-    
+
     static func newProfilePicReference() -> StorageReference {
         let uid = User.current.uid
-        
+
         return Storage.storage().reference().child("images/profilePic/\(uid)")
     }
 }

@@ -131,8 +131,7 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((DataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((DataResponse<UIImage>) -> Void)? = nil) {
         af_setImage(
             for: state,
             urlRequest: urlRequest(with: url),
@@ -170,8 +169,7 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((DataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((DataResponse<UIImage>) -> Void)? = nil) {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
             let error = AFIError.requestCancelled
             let response = DataResponse<UIImage>(request: nil, response: nil, data: nil, result: .failure(error))
@@ -278,8 +276,7 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((DataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((DataResponse<UIImage>) -> Void)? = nil) {
         af_setBackgroundImage(
             for: state,
             urlRequest: urlRequest(with: url),
@@ -317,8 +314,7 @@ extension UIButton {
         filter: ImageFilter? = nil,
         progress: ImageDownloader.ProgressHandler? = nil,
         progressQueue: DispatchQueue = DispatchQueue.main,
-        completion: ((DataResponse<UIImage>) -> Void)? = nil)
-    {
+        completion: ((DataResponse<UIImage>) -> Void)? = nil) {
         guard !isImageURLRequest(urlRequest, equalToActiveRequestURLForState: state) else {
             let error = AFIError.requestCancelled
             let response = DataResponse<UIImage>(request: nil, response: nil, data: nil, result: .failure(error))
@@ -430,8 +426,7 @@ extension UIButton {
     private func isImageURLRequest(
         _ urlRequest: URLRequestConvertible?,
         equalToActiveRequestURLForState state: UIControlState)
-        -> Bool
-    {
+        -> Bool {
         if
             let currentURL = imageRequestReceipt(for: state)?.request.task?.originalRequest?.url,
             let requestURL = urlRequest?.urlRequest?.url,
@@ -446,8 +441,7 @@ extension UIButton {
     private func isBackgroundImageURLRequest(
         _ urlRequest: URLRequestConvertible?,
         equalToActiveRequestURLForState state: UIControlState)
-        -> Bool
-    {
+        -> Bool {
         if
             let currentRequestURL = backgroundImageRequestReceipt(for: state)?.request.task?.originalRequest?.url,
             let requestURL = urlRequest?.urlRequest?.url,

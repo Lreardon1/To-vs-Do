@@ -8,13 +8,12 @@
 
 import UIKit
 
-
 class ToDoListTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var toDoItemTitleLabel: UILabel!
     @IBOutlet weak var toDoItemTimeLabel: UILabel!
     @IBOutlet weak var checkButton: UIButton!
-    
+
     @IBAction func checkButtonTapped(_ sender: UIButton) {
         if(checkButton.isSelected == true) {
             checkButton.isSelected = false
@@ -23,8 +22,7 @@ class ToDoListTableViewCell: UITableViewCell {
             checkButton.isSelected = true
             checkButton.setImage(UIImage(named: "CheckedBox"), for: UIControlState.normal)
         }
-        
+
     }
-    
-    
+
 }

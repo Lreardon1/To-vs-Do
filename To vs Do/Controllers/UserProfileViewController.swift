@@ -13,7 +13,7 @@ import AlamofireImage
 import AlamofireNetworkActivityIndicator
 
 class UserProfileViewController: UIViewController, UIScrollViewDelegate {
-    
+
     @IBOutlet weak var userProfileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var friendCountLabel: UILabel!
@@ -31,7 +31,7 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     @IBOutlet weak var statView: UIView!
-    
+
     let photoHelper = TVDPhotoHelper()
     var toDoTodayCount: Int? {
         didSet {
@@ -44,7 +44,7 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     var totalToDoCount: Int? {
-        didSet{
+        didSet {
             totalToDoLabel.text = "Total To Do: \(String(getTotalToDoCount())) tasks "
         }
     }
@@ -58,11 +58,11 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
             friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         }
     }
-    
+
     var image: UIImage? {
         didSet {
             let ref = Database.database().reference().child("users").child(User.current.uid).child("image_url")
-            
+
             ref.observeSingleEvent(of: .value) { (snapshot) in
                 let key = snapshot.value as? String
                 if let key = key {
@@ -72,14 +72,14 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-    
+
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return statView
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         usernameLabel.text = User.current.username
         friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         photoHelper.completionHandler = { image in
@@ -87,7 +87,7 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
             self.image = image
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         let ref = Database.database().reference().child("users").child(User.current.uid).child("image_url")
 
@@ -105,33 +105,32 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
         totalToDoLabel.text = "Total To Do: \(String(getTotalToDoCount())) tasks "
         dailyAverageLabel.text = "Daily Average: \(String(getAverageCount()))"
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     @IBAction func logoutButtonTapped(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .alert)
-        
-        let logoutAction = UIAlertAction(title: "Yes", style: .default, handler: { action in
+
+        let logoutAction = UIAlertAction(title: "Yes", style: .default, handler: { _ in
             User.setCurrent(User.current, writeToUserDefaults: false)
             let initialViewController = UIStoryboard.initialViewController(for: .login)
             self.view.window?.rootViewController = initialViewController
             self.view.window?.makeKeyAndVisible()
         })
-        
+
         alertController.addAction(logoutAction)
         let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil)
         alertController.addAction(cancelAction)
-        
+
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    
+
     @IBAction func editPhotoButtonTapped(_ sender: UIBarButtonItem) {
         photoHelper.presentActionSheet(from: self)
     }
-    
+
     func getToDoTodayCount() -> Int {
         let ref = Database.database().reference().child("stats").child(User.current.uid).child("toDoToday")
         ref.observeSingleEvent(of: .value) { (snapshot) in
@@ -143,7 +142,7 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
             return 0
         }
     }
-    
+
     func getCompletedTodayCount() -> Int {
         let ref = Database.database().reference().child("stats").child(User.current.uid).child("completedToday")
         ref.observeSingleEvent(of: .value) { (snapshot) in
@@ -155,7 +154,7 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
             return 0
         }
     }
-    
+
     func getTotalToDoCount() -> Int {
         let ref = Database.database().reference().child("stats").child(User.current.uid).child("totalToDo")
         ref.observeSingleEvent(of: .value) { (snapshot) in
@@ -167,7 +166,7 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
             return 0
         }
     }
-    
+
     func getAverageCount() -> Double {
         let ref = Database.database().reference().child("stats").child(User.current.uid).child("dailyAverage")
         ref.observeSingleEvent(of: .value) { (snapshot) in
@@ -179,11 +178,11 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
             return 0
         }
     }
-    
-    func getFriendCount() -> Int{
+
+    func getFriendCount() -> Int {
         let ref = Database.database().reference().child("friends").child(User.current.uid)
         ref.observeSingleEvent(of: .value) { (snapshot) in
-            guard let snapshot = snapshot.value as? [String : Any]
+            guard let snapshot = snapshot.value as? [String: Any]
                 else { return }
             self.friendCount = snapshot.count
         }
@@ -193,9 +192,9 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
             return 0
         }
     }
-    
+
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
-        
+
     }
-    
+
 }

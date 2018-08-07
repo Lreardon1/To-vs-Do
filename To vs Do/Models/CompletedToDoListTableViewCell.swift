@@ -12,5 +12,5 @@ class CompletedToDoListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var completedToDoTitleLabel: UILabel!
     @IBOutlet weak var completedToDoTimeLabel: UILabel!
-    
+
 }
