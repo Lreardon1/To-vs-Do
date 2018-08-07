@@ -41,6 +41,12 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
         
     }
     
+    @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
+        searchFriendsSearchBar.resignFirstResponder()
+        searchFriendsSearchBar.setShowsCancelButton(false, animated: true)
+    }
+    
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)

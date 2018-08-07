@@ -41,6 +41,12 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
         
     }
     
+    @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)

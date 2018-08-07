@@ -114,6 +114,7 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
         let alertController = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .alert)
         
         let logoutAction = UIAlertAction(title: "Yes", style: .default, handler: { action in
+            User.setCurrent(User.current, writeToUserDefaults: false)
             let initialViewController = UIStoryboard.initialViewController(for: .login)
             self.view.window?.rootViewController = initialViewController
             self.view.window?.makeKeyAndVisible()
