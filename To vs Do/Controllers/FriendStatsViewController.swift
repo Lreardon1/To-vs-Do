@@ -182,7 +182,7 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
         }
         
         ref.child("dailyAverage").observeSingleEvent(of: .value) { (snapshot) in
-            let count = snapshot.value as? Int
+            let count = snapshot.value as? Double
             if let count = count {
                 cell.friendAverageLabel.text = "Average: " + String(count)
             } else {
