@@ -72,6 +72,9 @@ class CompletedToDoListTableViewController: UIViewController, UITableViewDelegat
             StatCalculatorService.calculateStats()
             CoreDataHelper.deleteCompletedToDoItem(toDoItem: toDoIncomplete)
             self.completedToDoList = CoreDataHelper.retrieveCompletedToDoItem()
+            self.completedToDoList.sort { (toDoOne, toDoTwo) -> Bool in
+                toDoOne.dateCompleted! > toDoTwo.dateCompleted!
+            }
             self.completedToDoTableView.reloadData()
             StatCalculatorService.calculateStats()
         }
