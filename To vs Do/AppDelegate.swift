@@ -103,7 +103,6 @@ extension AppDelegate {
         } else {
             initialViewController = UIStoryboard.initialViewController(for: .login)
         }
-        
         window?.rootViewController = initialViewController
         window?.makeKeyAndVisible()
     }
