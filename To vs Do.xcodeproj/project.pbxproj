@@ -68,6 +68,7 @@
 		BE02E3E9210BD1FD003A9DF4 /* CompletedList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CompletedList.storyboard; sourceTree = "<group>"; };
 		BE02E3EB210BD221003A9DF4 /* MyProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
 		BE0A690921079AC1009E3919 /* CreateUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUsernameViewController.swift; sourceTree = "<group>"; };
+		BE607197211BB56F0045E35E /* To vs Do.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "To vs Do.entitlements"; sourceTree = "<group>"; };
 		BE88416A2110CB6D0034807D /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
 		BE88416C2110D8340034807D /* FriendsStats.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FriendsStats.storyboard; sourceTree = "<group>"; };
 		BE88416E2110DACF0034807D /* FriendStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendStatsViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +165,7 @@
 		BEBFC036210647BB00C803D6 /* To vs Do */ = {
 			isa = PBXGroup;
 			children = (
+				BE607197211BB56F0045E35E /* To vs Do.entitlements */,
 				BEBFC037210647BB00C803D6 /* AppDelegate.swift */,
 				BE02E3CE210935A6003A9DF4 /* Helpers */,
 				BE02E3BE2107EB45003A9DF4 /* Extensions */,
@@ -275,6 +277,11 @@
 				TargetAttributes = {
 					BEBFC033210647BB00C803D6 = {
 						CreatedOnToolsVersion = 9.4;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -544,6 +551,7 @@
 			baseConfigurationReference = F3D2F6BAF3B578EAFD34731A /* Pods-To vs Do.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "To vs Do/To vs Do.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 53Y7LKZDD9;
 				INFOPLIST_FILE = "$(SRCROOT)/To vs Do/Supporting Files/Info.plist";
@@ -563,6 +571,7 @@
 			baseConfigurationReference = E46CBA4B9BEB8A5E9DAD8825 /* Pods-To vs Do.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "To vs Do/To vs Do.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 53Y7LKZDD9;
 				INFOPLIST_FILE = "$(SRCROOT)/To vs Do/Supporting Files/Info.plist";
