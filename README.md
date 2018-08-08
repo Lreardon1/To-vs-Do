@@ -2,6 +2,11 @@
 
 An app that allows you to create your own to do list and see how productive your friends are in order to compete to see who can be the most productive.
 
+## Support
+
+To vs Do was made by Leith Reardon.
+You can contact him at leithreardonapple@gmail.com
+
 ## Audience
 
 People who tend to procrastinate but are motivated by competition
