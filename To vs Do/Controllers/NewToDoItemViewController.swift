@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import UserNotifications
 
 class NewToDoItemViewController: UIViewController {
     
@@ -43,6 +44,21 @@ class NewToDoItemViewController: UIViewController {
     @IBAction func addItemButtonPressed(_ sender: UIButton) {
         
         if(toDoTitleTextField.text != "") {
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.title = toDoTitleTextField.text!
+            notificationContent.sound = UNNotificationSound.default()
+            
+            let triggerDate = toDoDatePicker.date
+            let comps = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+            
+            let notificationRequest = UNNotificationRequest(identifier: toDoTitleTextField.text! + toDoDatePicker.date.convertToString(), content: notificationContent, trigger: trigger)
+            UNUserNotificationCenter.current().add(notificationRequest, withCompletionHandler: { error in
+                if error != nil {
+                    print("something went wrong")
+                } else {
+                }
+            })
             let newToDo = CoreDataHelper.newToDoItem()
             newToDo.title = toDoTitleTextField.text
             newToDo.dueDate = toDoDatePicker.date

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -65,6 +66,8 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Delete") { (action, indexPath) in
             let toDoDelete = self.toDoList[indexPath.row]
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [toDoDelete.title! + (toDoDelete.dueDate?.convertToString())!])
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [toDoDelete.title! + (toDoDelete.dueDate?.convertToString())!])
             CoreDataHelper.deleteToDoItem(toDoItem: toDoDelete)
             self.toDoList = CoreDataHelper.retrieveToDoItem()
             self.toDoList.sort { (toDoOne, toDoTwo) -> Bool in
@@ -87,8 +90,9 @@ class ToDoListTableViewController: UIViewController, UITableViewDelegate, UITabl
         for cell in cells {
             if (cell.checkButton.isSelected) {
                 let completedToDo = self.toDoList[count]
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [completedToDo.title! + (completedToDo.dueDate?.convertToString())!])
+                UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [completedToDo.title! + (completedToDo.dueDate?.convertToString())!])
                 let newCompletedToDo = CoreDataHelper.newCompletedToDoItem()
-                
                 newCompletedToDo.title = completedToDo.title
                 newCompletedToDo.dueDate = completedToDo.dueDate
                 newCompletedToDo.dateCompleted = Date()

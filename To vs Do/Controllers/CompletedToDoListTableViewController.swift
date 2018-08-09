@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class CompletedToDoListTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var completedToDoList = [CompletedToDoItem]() {
@@ -64,6 +65,22 @@ class CompletedToDoListTableViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .normal, title: "Mark as Incomplete") { (action, indexPath) in
             let toDoIncomplete = self.completedToDoList[indexPath.row]
+            
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.title = toDoIncomplete.title!
+            notificationContent.sound = UNNotificationSound.default()
+            
+            let triggerDate = toDoIncomplete.dueDate
+            let comps = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate!)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+            
+            let notificationRequest = UNNotificationRequest(identifier: toDoIncomplete.title! + (toDoIncomplete.dueDate?.convertToString())!, content: notificationContent, trigger: trigger)
+            UNUserNotificationCenter.current().add(notificationRequest, withCompletionHandler: { error in
+                if error != nil {
+                    print("something went wrong")
+                } else {
+                }
+            })
             let newToDo = CoreDataHelper.newToDoItem()
             newToDo.title = toDoIncomplete.title
             newToDo.dueDate = toDoIncomplete.dueDate
