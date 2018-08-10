@@ -16,28 +16,56 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
     
     @IBOutlet weak var addFriendsTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var searchResultsTableView: UITableView!
     
-    var users = [User]()
+    var users = [User]() {
+        didSet {
+            usernames = []
+            for user in users{
+                usernames.append(user.username)
+            }
+        }
+    }
+    var usernames = [String]() {
+        didSet {
+            searchResultsTableView.reloadData()
+        }
+    }
+    
+    var filteredUsernames = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchResultsTableView.isHidden = true
         
-//        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
-//        //create left side empty space so that done button set on right side
-//        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
-//        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
-//        toolbar.setItems([flexSpace, doneBtn], animated: false)
-//        toolbar.sizeToFit()
-//        //setting toolbar as inputAccessoryView
-//        self.searchBar.inputAccessoryView = toolbar
+        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+        //create left side empty space so that done button set on right side
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        //setting toolbar as inputAccessoryView
+        self.searchBar.inputAccessoryView = toolbar
         
         addFriendsTableView.tableFooterView = UIView()
+        
     }
     
-//    @objc func doneButtonAction() {
-//        searchBar.resignFirstResponder()
-//        searchBar.setShowsCancelButton(false, animated: true)
-//    }
+    @objc func doneButtonAction() {
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchResultsTableView.isHidden = true
+        searchBar.text = ""
+        UserService.usersExcludingCurrentUser { [unowned self] (users) in
+            self.users = users
+            
+            DispatchQueue.main.async {
+                self.addFriendsTableView.reloadData()
+            }
+        }
+        filteredUsernames = usernames
+        searchResultsTableView.reloadData()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -49,20 +77,25 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
                 self.addFriendsTableView.reloadData()
             }
         }
+        
+        filteredUsernames = usernames
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredUsernames = searchText.isEmpty ? usernames : usernames.filter({(dataString: String) -> Bool in
+            // If dataItem matches the searchText, return true to include it
+            return dataString.range(of: searchText, options: .caseInsensitive) != nil
+        })
         
+        searchResultsTableView.reloadData()
     }
     
-    @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
-        searchBar.resignFirstResponder()
-        searchBar.setShowsCancelButton(false, animated: true)
-    }
+
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        searchResultsTableView.isHidden = true
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = ""
         UserService.usersExcludingCurrentUser { [unowned self] (users) in
@@ -72,15 +105,19 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
                 self.addFriendsTableView.reloadData()
             }
         }
+        filteredUsernames = usernames
+        searchResultsTableView.reloadData()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
+        searchResultsTableView.isHidden = false
         searchBar.text = ""
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        searchResultsTableView.isHidden = true
         searchBar.setShowsCancelButton(false, animated: true)
         if(searchBar.text != nil) {
             UserService.searchForNewFriend(username: searchBar.text!) { [unowned self] (users) in
@@ -91,7 +128,8 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
                 }
             }
         }
-        
+        filteredUsernames = usernames
+        searchResultsTableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -99,14 +137,50 @@ class AddFriendViewController: UIViewController, UISearchBarDelegate, UITableVie
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendTableViewCell", for: indexPath) as! AddFriendTableViewCell
-        cell.delegate = self
-        configure(cell: cell, atIndexPath: indexPath)
-        return cell
+        
+        if(tableView == self.addFriendsTableView) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendTableViewCell", for: indexPath) as! AddFriendTableViewCell
+            cell.delegate = self
+            configure(cell: cell, atIndexPath: indexPath)
+            return cell
+        } else {
+            let cell = searchResultsTableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath)
+            cell.textLabel?.text = filteredUsernames[indexPath.row]
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if(tableView == self.searchResultsTableView) {
+            UserService.searchForNewFriend(username: filteredUsernames[indexPath.row]) { [unowned self] (users) in
+                self.users = users
+                    
+                DispatchQueue.main.async {
+                    self.addFriendsTableView.reloadData()
+                }
+            }
+            searchBar.resignFirstResponder()
+            searchResultsTableView.isHidden = true
+            searchBar.setShowsCancelButton(false, animated: true)
+            filteredUsernames = usernames
+            searchResultsTableView.reloadData()
+        }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        
+        var count: Int?
+        
+        if(tableView == self.addFriendsTableView) {
+            count = users.count
+        }
+        
+        if(tableView == self.searchResultsTableView) {
+            count = filteredUsernames.count
+        }
+        
+        return count!
     }
     
     func configure(cell: AddFriendTableViewCell, atIndexPath indexPath: IndexPath) {

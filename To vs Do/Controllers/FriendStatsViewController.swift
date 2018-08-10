@@ -13,26 +13,53 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
     
     @IBOutlet weak var friendStatTableView: UITableView!
     @IBOutlet weak var searchFriendsSearchBar: UISearchBar!
+    @IBOutlet weak var searchResultsTableView: UITableView!
     
-    var users = [User]()
+    var users = [User]() {
+        didSet {
+            usernames = []
+            for user in users{
+                usernames.append(user.username)
+            }
+        }
+    }
+    var usernames = [String]() {
+        didSet {
+            searchResultsTableView.reloadData()
+        }
+    }
+    
+    var filteredUsernames = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchResultsTableView.isHidden = true
         
-//        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
-//        //create left side empty space so that done button set on right side
-//        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
-//        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
-//        toolbar.setItems([flexSpace, doneBtn], animated: false)
-//        toolbar.sizeToFit()
-//        //setting toolbar as inputAccessoryView
-//        self.searchFriendsSearchBar.inputAccessoryView = toolbar
+        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+        //create left side empty space so that done button set on right side
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
+        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        toolbar.setItems([flexSpace, doneBtn], animated: false)
+        toolbar.sizeToFit()
+        //setting toolbar as inputAccessoryView
+        self.searchFriendsSearchBar.inputAccessoryView = toolbar
     }
     
-//    @objc func doneButtonAction() {
-//        searchFriendsSearchBar.resignFirstResponder()
-//        searchFriendsSearchBar.setShowsCancelButton(false, animated: true)
-//    }
+    @objc func doneButtonAction() {
+        searchFriendsSearchBar.resignFirstResponder()
+        searchFriendsSearchBar.setShowsCancelButton(false, animated: true)
+        searchResultsTableView.isHidden = true
+        searchFriendsSearchBar.text = ""
+        UserService.friendsList { [unowned self] (users) in
+            self.users = users
+            
+            DispatchQueue.main.async {
+                self.friendStatTableView.reloadData()
+            }
+        }
+        filteredUsernames = usernames
+        searchResultsTableView.reloadData()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -44,6 +71,7 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
                 self.friendStatTableView.reloadData()
             }
         }
+        filteredUsernames = usernames
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,17 +79,18 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredUsernames = searchText.isEmpty ? usernames : usernames.filter({(dataString: String) -> Bool in
+            // If dataItem matches the searchText, return true to include it
+            return dataString.range(of: searchText, options: .caseInsensitive) != nil
+        })
         
-    }
-    
-    @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
-        searchFriendsSearchBar.resignFirstResponder()
-        searchFriendsSearchBar.setShowsCancelButton(false, animated: true)
+        searchResultsTableView.reloadData()
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        searchResultsTableView.isHidden = true
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = ""
         UserService.friendsList { [unowned self] (users) in
@@ -71,15 +100,19 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
                 self.friendStatTableView.reloadData()
             }
         }
+        filteredUsernames = usernames
+        searchResultsTableView.reloadData()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
+        searchResultsTableView.isHidden = false
         searchBar.text = ""
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        searchResultsTableView.isHidden = true
         searchBar.setShowsCancelButton(false, animated: true)
         if(searchBar.text != nil) {
             UserService.searchForOldFriend(username: searchBar.text!) { [unowned self] (users) in
@@ -90,11 +123,41 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
                 }
             }
         }
+        filteredUsernames = usernames
+        searchResultsTableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if(tableView == self.searchResultsTableView) {
+            UserService.searchForOldFriend(username: filteredUsernames[indexPath.row]) { [unowned self] (users) in
+                self.users = users
+                
+                DispatchQueue.main.async {
+                    self.friendStatTableView.reloadData()
+                }
+            }
+            searchFriendsSearchBar.resignFirstResponder()
+            searchResultsTableView.isHidden = true
+            searchFriendsSearchBar.setShowsCancelButton(false, animated: true)
+            filteredUsernames = usernames
+            searchResultsTableView.reloadData()
+        }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        
+        var count: Int?
+        
+        if(tableView == self.friendStatTableView) {
+            count = users.count
+        }
+        
+        if(tableView == self.searchResultsTableView) {
+            count = filteredUsernames.count
+        }
+        
+        return count!
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -162,46 +225,53 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "friendStatTableViewCell", for: indexPath) as! FriendStatTableViewCell
-        let friend  = users[indexPath.row]
-        cell.friendProfileImageView.af_setImage(withURL: URL(string: friend.profilePic)!)
-        cell.friendUsernameLabel.text = friend.username
         
-        let ref = Database.database().reference().child("stats").child(friend.uid)
-        ref.child("completedToday").observeSingleEvent(of: .value) { (snapshot) in
-            let count = snapshot.value as? Int
-            if let count = count {
-                cell.friendCompletedLabel.text = "Completed: " + String(count)
-            } else {
-                cell.friendCompletedLabel.text = "Completed: 0"
+        if(tableView == self.friendStatTableView) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "friendStatTableViewCell", for: indexPath) as! FriendStatTableViewCell
+            let friend  = users[indexPath.row]
+            cell.friendProfileImageView.af_setImage(withURL: URL(string: friend.profilePic)!)
+            cell.friendUsernameLabel.text = friend.username
+            
+            let ref = Database.database().reference().child("stats").child(friend.uid)
+            ref.child("completedToday").observeSingleEvent(of: .value) { (snapshot) in
+                let count = snapshot.value as? Int
+                if let count = count {
+                    cell.friendCompletedLabel.text = "Completed: " + String(count)
+                } else {
+                    cell.friendCompletedLabel.text = "Completed: 0"
+                }
             }
-        }
-        
-        ref.child("toDoToday").observeSingleEvent(of: .value) { (snapshot) in
-            let count = snapshot.value as? Int
-            if let count = count {
-                cell.friendToDoLabel.text = "To Do Today: " + String(count)
-            } else {
-                cell.friendToDoLabel.text = "To Do Today: 0"
+            
+            ref.child("toDoToday").observeSingleEvent(of: .value) { (snapshot) in
+                let count = snapshot.value as? Int
+                if let count = count {
+                    cell.friendToDoLabel.text = "Due Today: " + String(count)
+                } else {
+                    cell.friendToDoLabel.text = "Due Today: 0"
+                }
             }
-        }
-        ref.child("totalToDo").observeSingleEvent(of: .value) { (snapshot) in
-            let count = snapshot.value as? Int
-            if let count = count {
-                cell.friendTotalToDoLabel.text = "Total To Do: " + String(count)
-            } else {
-                cell.friendTotalToDoLabel.text = "Total To Do: 0"
+            ref.child("totalToDo").observeSingleEvent(of: .value) { (snapshot) in
+                let count = snapshot.value as? Int
+                if let count = count {
+                    cell.friendTotalToDoLabel.text = "Total Due: " + String(count)
+                } else {
+                    cell.friendTotalToDoLabel.text = "Total Due: 0"
+                }
             }
-        }
-        
-        ref.child("dailyAverage").observeSingleEvent(of: .value) { (snapshot) in
-            let count = snapshot.value as? Double
-            if let count = count {
-                cell.friendAverageLabel.text = "Average: " + String(count)
-            } else {
-                cell.friendAverageLabel.text = "Average: 0"
+            
+            ref.child("dailyAverage").observeSingleEvent(of: .value) { (snapshot) in
+                let count = snapshot.value as? Double
+                if let count = count {
+                    cell.friendAverageLabel.text = "Average: " + String(count)
+                } else {
+                    cell.friendAverageLabel.text = "Average: 0"
+                }
             }
+            return cell
+        } else {
+            let cell = searchResultsTableView.dequeueReusableCell(withIdentifier: "cellIdentifier", for: indexPath)
+            cell.textLabel?.text = filteredUsernames[indexPath.row]
+            return cell
         }
-        return cell
     }
 }

@@ -83,7 +83,6 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         usernameLabel.text = User.current.username
         friendCountLabel.text = "You have \(String(getFriendCount())) friends"
     }
@@ -185,5 +184,4 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func unwindWithSegue(_ segue: UIStoryboardSegue) {
         
     }
-    
 }
