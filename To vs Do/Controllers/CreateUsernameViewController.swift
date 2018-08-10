@@ -10,14 +10,22 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class CreateUsernameViewController: UIViewController {
+class CreateUsernameViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     
+    let limitLength = 12
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = usernameTextField.text else { return true }
+        let newLength = text.count + string.count - range.length
+        return newLength <= limitLength
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usernameTextField.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
     }
     

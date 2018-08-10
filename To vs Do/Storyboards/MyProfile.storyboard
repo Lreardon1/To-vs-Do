@@ -172,14 +172,15 @@
                         <viewLayoutGuide key="safeArea" id="gD4-8T-S3j"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="h0T-SI-6en">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="Kat-jb-cuG"/>
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="Jm0-s9-rQZ">
                             <connections>
                                 <action selector="logoutButtonTapped:" destination="8Io-Up-VAd" id="gJH-gO-bjX"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit Photo" id="vQs-Bn-k5Q">
+                        <barButtonItem key="rightBarButtonItem" title="Edit Profile" id="vQs-Bn-k5Q">
                             <connections>
-                                <action selector="editPhotoButtonTapped:" destination="8Io-Up-VAd" id="OL4-6f-db2"/>
+                                <segue destination="UCZ-bB-0ij" kind="show" identifier="editProfile" id="Ugt-ig-Wbn"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -200,6 +201,94 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zAc-UG-blT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="336.80000000000001" y="865.81709145427294"/>
+        </scene>
+        <!--Edit Profile View Controller-->
+        <scene sceneID="PVw-GY-nuR">
+            <objects>
+                <viewController id="UCZ-bB-0ij" customClass="EditProfileViewController" customModule="To_vs_Do" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="voU-i3-L9I">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mvf-Wb-Op6">
+                                <rect key="frame" x="22" y="86" width="370" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="04c-uP-vEF"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="UCZ-bB-0ij" id="C9h-aT-uWi"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcg-pS-afi">
+                                <rect key="frame" x="44" y="469" width="326" height="44"/>
+                                <color key="backgroundColor" red="0.10980392160000001" green="0.44705882349999998" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="YLM-pv-JN4"/>
+                                </constraints>
+                                <state key="normal" title="Save Changes">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveChangesButtonTapped:" destination="UCZ-bB-0ij" eventType="touchUpInside" id="Fo9-oB-kaX"/>
+                                    <segue destination="8kj-q1-0BO" kind="unwind" identifier="saveChanges" unwindAction="unwindWithSegue:" id="bH1-is-gpq"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to edit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fay-jU-EnL">
+                                <rect key="frame" x="22" y="403" width="370" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="sk6-NG-IVw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FFs-Iu-9sK">
+                                <rect key="frame" x="87" y="152" width="240" height="240"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="Das-7g-fRy"/>
+                                    <constraint firstAttribute="width" constant="240" id="bgn-Bb-qsu"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="weZ-0C-w4d" appends="YES" id="Gpp-7z-CQ3"/>
+                                </connections>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fay-jU-EnL" firstAttribute="top" secondItem="FFs-Iu-9sK" secondAttribute="bottom" constant="11" id="1xK-sW-7AI"/>
+                            <constraint firstItem="8MV-Mr-bDq" firstAttribute="trailing" secondItem="kcg-pS-afi" secondAttribute="trailing" constant="44" id="997-BD-LZN"/>
+                            <constraint firstItem="8MV-Mr-bDq" firstAttribute="trailing" secondItem="fay-jU-EnL" secondAttribute="trailing" constant="22" id="9uK-bp-HTP"/>
+                            <constraint firstItem="kcg-pS-afi" firstAttribute="top" secondItem="fay-jU-EnL" secondAttribute="bottom" constant="44" id="HpK-ST-Uww"/>
+                            <constraint firstItem="8MV-Mr-bDq" firstAttribute="trailing" secondItem="mvf-Wb-Op6" secondAttribute="trailing" constant="22" id="Phj-dU-XF2"/>
+                            <constraint firstItem="FFs-Iu-9sK" firstAttribute="top" secondItem="mvf-Wb-Op6" secondAttribute="bottom" constant="22" id="bwV-Xg-xK2"/>
+                            <constraint firstItem="mvf-Wb-Op6" firstAttribute="top" secondItem="8MV-Mr-bDq" secondAttribute="top" constant="22" id="ev7-xl-Gca"/>
+                            <constraint firstItem="FFs-Iu-9sK" firstAttribute="centerX" secondItem="8MV-Mr-bDq" secondAttribute="centerX" id="ipg-Aw-WUf"/>
+                            <constraint firstItem="mvf-Wb-Op6" firstAttribute="leading" secondItem="8MV-Mr-bDq" secondAttribute="leading" constant="22" id="jbJ-TH-hkF"/>
+                            <constraint firstItem="fay-jU-EnL" firstAttribute="leading" secondItem="8MV-Mr-bDq" secondAttribute="leading" constant="22" id="py1-MH-q9S"/>
+                            <constraint firstItem="kcg-pS-afi" firstAttribute="leading" secondItem="8MV-Mr-bDq" secondAttribute="leading" constant="44" id="xmq-Ra-Jen"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8MV-Mr-bDq"/>
+                    </view>
+                    <connections>
+                        <outlet property="profilePicImageView" destination="FFs-Iu-9sK" id="u0z-cd-xo7"/>
+                        <outlet property="saveChangesButton" destination="kcg-pS-afi" id="AWm-14-sv1"/>
+                        <outlet property="tapToEditLabel" destination="fay-jU-EnL" id="S0z-OO-UGc"/>
+                        <outlet property="usernameTextField" destination="mvf-Wb-Op6" id="8uE-yU-mKE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="52W-dp-PWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="8kj-q1-0BO" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="weZ-0C-w4d">
+                    <connections>
+                        <action selector="pictureTapped:" destination="UCZ-bB-0ij" id="yNW-UF-2qF"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1068" y="866"/>
         </scene>
         <!--Profile-->
         <scene sceneID="j9z-lA-qGq">

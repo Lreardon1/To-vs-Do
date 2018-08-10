@@ -132,6 +132,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="8Cw-KB-7Wh" id="gXA-jg-pLX"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.61960784313725492" green="0.70196078431372544" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>

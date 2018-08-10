@@ -32,7 +32,6 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
     }
     @IBOutlet weak var statView: UIView!
     
-    let photoHelper = TVDPhotoHelper()
     var toDoTodayCount: Int? {
         didSet {
             toDoTodayLabel.text = String(getToDoTodayCount())
@@ -61,15 +60,20 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
     
     var image: UIImage? {
         didSet {
-            let ref = Database.database().reference().child("users").child(User.current.uid).child("image_url")
+            self.userProfileImageView.image = image
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else { return }
+        
+        switch identifier {
+        case "editProfile":
+            let destination = segue.destination as! EditProfileViewController
+            destination.originalImage = userProfileImageView.image!
             
-            ref.observeSingleEvent(of: .value) { (snapshot) in
-                let key = snapshot.value as? String
-                if let key = key {
-                    let image = URL(string: key)
-                    self.userProfileImageView.af_setImage(withURL: image!)
-                }
-            }
+        default:
+            print("unexpected segue identifier")
         }
     }
     
@@ -82,23 +86,13 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
         
         usernameLabel.text = User.current.username
         friendCountLabel.text = "You have \(String(getFriendCount())) friends"
-        photoHelper.completionHandler = { image in
-            ProfilePicService.create(for: image)
-            self.image = image
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let ref = Database.database().reference().child("users").child(User.current.uid).child("image_url")
 
-        ref.observeSingleEvent(of: .value) { (snapshot) in
-            let key = snapshot.value as? String
-            if let key = key {
-                let image = URL(string: key)
-                self.userProfileImageView.af_setImage(withURL: image!)
-            }
-        }
+        self.userProfileImageView.af_setImage(withURL: URL(string: User.current.profilePic)!)
         StatCalculatorService.calculateStats()
+        usernameLabel.text = User.current.username
         friendCountLabel.text = "You have \(String(getFriendCount())) friends"
         toDoTodayLabel.text = String(getToDoTodayCount())
         completedTodayLabel.text = String(getCompletedTodayCount())
@@ -124,11 +118,6 @@ class UserProfileViewController: UIViewController, UIScrollViewDelegate {
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    
-    @IBAction func editPhotoButtonTapped(_ sender: UIBarButtonItem) {
-        photoHelper.presentActionSheet(from: self)
     }
     
     func getToDoTodayCount() -> Int {

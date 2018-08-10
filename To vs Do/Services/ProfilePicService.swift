@@ -22,6 +22,7 @@ struct ProfilePicService {
             
             let urlString = downloadURL.absoluteString
             User.current.profilePic = urlString
+            User.setCurrent(User.current, writeToUserDefaults: true)
             ProfilePic.create(forURLString: urlString)
         }
     }

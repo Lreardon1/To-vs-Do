@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import UserNotifications
 
-class NewToDoItemViewController: UIViewController, UITextFieldDelegate {
+class NewToDoItemViewController: UIViewController {
     
 //    let i: UILabel = {
 //        let label = UILabel()
@@ -25,18 +25,15 @@ class NewToDoItemViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        toDoTitleTextField.delegate = self
-        
         toDoDatePicker.minimumDate = Date()
-        super.viewDidLoad()
-        //init toolbar
+        
         let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
-        //create left side empty space so that done button set on right side
         let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
         let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+        
         toolbar.setItems([flexSpace, doneBtn], animated: false)
         toolbar.sizeToFit()
-        //setting toolbar as inputAccessoryView
+        
         self.toDoTitleTextField.inputAccessoryView = toolbar
     }
     

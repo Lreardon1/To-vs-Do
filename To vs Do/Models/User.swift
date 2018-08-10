@@ -12,7 +12,7 @@ import FirebaseDatabase.FIRDataSnapshot
 class User: Codable {
     
     let uid: String
-    let username: String
+    var username: String
     var isFriend = false
     var profilePic: String
     

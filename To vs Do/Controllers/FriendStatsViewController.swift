@@ -18,8 +18,21 @@ class FriendStatsViewController: UIViewController, UISearchBarDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+//        let toolbar:UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
+//        //create left side empty space so that done button set on right side
+//        let flexSpace = UIBarButtonItem(barButtonSystemItem:    .flexibleSpace, target: nil, action: nil)
+//        let doneBtn: UIBarButtonItem = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(doneButtonAction))
+//        toolbar.setItems([flexSpace, doneBtn], animated: false)
+//        toolbar.sizeToFit()
+//        //setting toolbar as inputAccessoryView
+//        self.searchFriendsSearchBar.inputAccessoryView = toolbar
     }
+    
+//    @objc func doneButtonAction() {
+//        searchFriendsSearchBar.resignFirstResponder()
+//        searchFriendsSearchBar.setShowsCancelButton(false, animated: true)
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
